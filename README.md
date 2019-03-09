@@ -1,68 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Proposal
 
-## Available Scripts
+- What problem does your app solve?
 
-In the project directory, you can run:
+- Be as specific as possible; how does your app solve the problem?
 
-### `npm start`
+- What is the mission statement?
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Features
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- What features are required for your minimum viable product?
 
-### `npm test`
+- What features may you wish to put in a future release?
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- What do the top 3 similar apps do for their users?
 
-### `npm run build`
+# Frameworks
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- What 3rd party frameworks are you considering using?
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Do APIs require you to contact its maintainer to gain access?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Are you required to pay to use the API?
 
-### `npm run eject`
+- Have you considered using Apple Frameworks? (MapKit, Healthkit, ARKit?)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# For Data Scientists
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Describe the Established data source with at least rough data able to be provided on day 1.
 
-## Learn More
+- You can gather information about the data set you&#39;ll be working with from the project description. Be sure to collaborate with your PM, and your Backend Architect to chat about the resources you have.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Write a description for what the DS problem is (what uncertainty/prediction are we trying to do here? Sentiment analysis? Why is this a useful solution to a problem?)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- A target (e.g. JSON format or such) for output that DS students can deliver to web/other students for them to ingest and use in the app
 
-### Code Splitting
+# Target Audience
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- Who is your target audience? Be specific.
 
-### Analyzing the Bundle Size
+- What feedback have you gotten from potential users?
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- Have you validated the problem and your solution with your target audience? How?
 
-### Making a Progressive Web App
+Research
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Research thouroughly before writing a single line of code. Solidify the features of your app conceptually before implementation. Spend the weekend researching so you can hit the ground running on Monday.
 
-### Advanced Configuration
+# Prototype Key Feature(s)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- This is the &quot;bread and butter&quot; of the app, this is what makes your app yours. Calculate how long it takes to implement these features and triple the time estimated. That way you&#39;ll have plenty of time to finish. It is preferred to drop features and spend more time working on your MVP features if needed.
