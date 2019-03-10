@@ -1,32 +1,33 @@
-import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.scss'
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import { Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import './App.scss';
+import Main from './views/Main';
+import Login from './views/Login';
+import { connect } from 'react-redux';
 
 class App extends Component {
     state = {
         view: false,
-    }
+    };
 
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
+                <Route to={'/login'} component={Login} />
+                <PrivateRoute
+                    exact
+                    to={'/'}
+                    component={Main}
+                    loggedIn={this.props.loggedIn}
+                />
             </div>
-        )
+        );
     }
 }
 
-export default App
+const mapStateToProps = state => ({
+    loggedIn: state.appReducer.authenticated,
+});
+export default connect(mapStateToProps)(App);
