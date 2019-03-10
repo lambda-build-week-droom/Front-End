@@ -16,7 +16,6 @@ class Main extends Component {
     };
 
     componentDidMount() {
-        debugger;
         if (this.compareObjects(this.props.account, {})) {
             this.setState({ needsInfo: true, account: this.props.account });
         }
@@ -41,7 +40,6 @@ class Main extends Component {
     }
 
     componentWillUpdate(nextProps, nextState, nextContext) {
-        debugger;
         const next = {
             account: nextProps.account,
             updatingAccountInfo: nextProps.updatingAccountInfo,
@@ -57,7 +55,6 @@ class Main extends Component {
     };
 
     getModalContent = props => {
-        debugger;
         if (props.modalType === 'spinner') {
             return <Spinner onClose={props.onClose} />;
         }

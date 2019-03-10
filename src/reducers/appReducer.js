@@ -3,6 +3,7 @@ import {
     AUTHENTICATED,
     ERROR,
     REGISTERED,
+    AUTHENTICATED_FROM_LOCAL_STORAGE,
 } from '../actions/appActions';
 
 const initialState = {
@@ -15,10 +16,15 @@ const initialState = {
 
 export const appReducer = (state = initialState, action) => {
     switch (action.type) {
+        case AUTHENTICATED_FROM_LOCAL_STORAGE:
+            return {
+                ...state,
+                token: action.payload,
+                authenticated: true,
+                error: null,
+            };
         case CHECKING_AUTHENTICATION:
             return { ...state, fetching: true };
-        case REGISTERED:
-            return { ...state, registered: true };
         case AUTHENTICATED:
             return {
                 authenticated: true,
