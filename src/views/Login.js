@@ -5,46 +5,38 @@ import { connect } from 'react-redux';
 import {
     Grid,
     withStyles,
-    Modal,
     TextField,
-    Typography,
     FormControlLabel,
     Switch,
 } from '@material-ui/core';
 import DroomButton from '../components/DroomButton';
 import { checkAuthentication, submitRegistration } from '../actions/appActions';
 import { Redirect } from 'react-router-dom';
+import SimpleModal from '../components/SimpleModal';
 
 class Login extends Component {
     state = {
         open: false,
         registrationCompany: false,
+        userName: '',
+        password: '',
     };
 
-    onSubmit = e => {
-        debugger;
+    onSubmitLogin = e => {
         e.preventDefault();
-        let length = e.target.length;
-        let username,
-            password = '';
 
-        for (let i = 0; i < length; i++) {
-            if (e.target[i].name === 'userName') {
-                username = e.target[i].value;
-            } else if (e.target[i].name === 'password') {
-                password = e.target[i].value;
-            }
-            e.target[i].value = '';
-        }
+        let userName = this.state.userName;
+        let password = this.state.password;
+        this.setState({ userName: '', password: '' });
 
-        this.props.checkAuthentication(username, password);
+        this.props.checkAuthentication(userName, password);
     };
 
     handleOpen = () => {
         this.setState({ open: true });
     };
 
-    handleChange = () => {
+    handleCompanyEmployeeChange = () => {
         this.setState({ registrationCompany: !this.state.registrationCompany });
     };
 
@@ -52,13 +44,9 @@ class Login extends Component {
         this.setState({ open: false });
     };
 
-    getModalStyles() {
-        return {
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-        };
-    }
+    handleChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
 
     submitRegistration = e => {
         e.preventDefault();
@@ -81,14 +69,15 @@ class Login extends Component {
         this.handleClose();
     };
 
-    getModalContent() {
+    getModalContent = () => {
         const { classes } = this.props;
+        this.submitRegistration.persist();
         return (
             <form
                 noValidate
                 autoComplete="off"
                 className={classes.form}
-                onSubmit={this.submitRegistration}
+                onSubmit={submitRegistration}
             >
                 <TextField
                     name="userName"
@@ -111,7 +100,7 @@ class Login extends Component {
                     control={
                         <Switch
                             checked={this.state.registrationCompany}
-                            onChange={this.handleChange}
+                            onChange={this.handleCompanyEmployeeChange}
                             color="primary"
                             name={'company switch'}
                         />
@@ -122,7 +111,7 @@ class Login extends Component {
                     control={
                         <Switch
                             checked={!this.state.registrationCompany}
-                            onChange={this.handleChange}
+                            onChange={this.handleCompanyEmployeeChange}
                             color="primary"
                             name={'employee switch'}
                         />
@@ -132,7 +121,7 @@ class Login extends Component {
                 <DroomButton text={'Submit'} type={'Submit'} />
             </form>
         );
-    }
+    };
 
     render() {
         if (this.props.authenticated) {
@@ -153,7 +142,7 @@ class Login extends Component {
                         noValidate
                         autoComplete="off"
                         className={classes.form}
-                        onSubmit={this.onSubmit}
+                        onSubmit={this.onSubmitLogin}
                     >
                         <TextField
                             name="userName"
@@ -161,7 +150,9 @@ class Login extends Component {
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
+                            value={this.state.userName}
                             error={!!this.props.error}
+                            onChange={this.handleChange}
                         />
 
                         <TextField
@@ -170,31 +161,32 @@ class Login extends Component {
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
+                            value={this.state.password}
                             error={!!this.props.error}
+                            onChange={this.handleChange}
+                            type={'password'}
                         />
                         {this.props.error && (
                             <p className={classes.errorMessage}>
                                 {this.props.error.message}
                             </p>
                         )}
-                        <DroomButton text="Submit" type={'submit'} />
                     </form>
+                    <DroomButton
+                        text="Submit"
+                        type={'submit'}
+                        onClick={this.onSubmitLogin}
+                    />
                     <DroomButton onClick={this.handleOpen} text="Register" />
                 </Grid>
 
-                <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
+                <SimpleModal
                     open={this.state.open}
                     onClose={this.handleClose}
-                >
-                    <div
-                        style={this.getModalStyles()}
-                        className={classes.paper}
-                    >
-                        {this.getModalContent()}
-                    </div>
-                </Modal>
+                    title={'Registration'}
+                    subtitle={'Please fill out the form below.'}
+                    getModalContent={this.getModalContent}
+                />
             </Grid>
         );
     }

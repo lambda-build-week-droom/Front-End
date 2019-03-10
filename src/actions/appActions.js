@@ -1,4 +1,5 @@
 import apiRequest from './axios';
+import actionCreator from './actionCreator';
 import uuid4 from 'uuid4';
 
 export const CHECKING_AUTHENTICATION = 'CHECKING_AUTHENTICATION';
@@ -9,8 +10,7 @@ export const REGISTERED = 'REGISTERED';
 let registered = [];
 
 export const checkAuthentication = (username, password) => async dispatch => {
-    debugger;
-    dispatch(actionCreator(CHECKING_AUTHENTICATION, null));
+    dispatch(actionCreator(CHECKING_AUTHENTICATION));
 
     // todo: remove this because once backend is up then backend will validate the newly registered person.
     for (let i = 0; i < registered.length; i++) {
@@ -50,8 +50,3 @@ export const submitRegistration = (username, password) => async dispatch => {
         dispatch(actionCreator(REGISTERED));
     }, 1000);
 };
-
-const actionCreator = (type, payload) => ({
-    type,
-    payload,
-});
