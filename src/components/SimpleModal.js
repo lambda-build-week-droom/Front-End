@@ -29,7 +29,7 @@ const styles = theme => ({
 
 const SimpleModal = props => {
     const { classes } = props;
-    debugger;
+
     return (
         <Modal
             aria-labelledby="simple-modal-title"

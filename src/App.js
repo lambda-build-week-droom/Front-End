@@ -6,7 +6,7 @@ import './App.scss';
 import Main from './views/Main';
 import Login from './views/Login';
 import { connect } from 'react-redux';
-import { encrypt } from './components/Cryptr';
+import { decrypt, encrypt } from './components/Cryptr';
 import { authenticateFromLocalStorage } from './actions/appActions';
 import { loggedIn } from './actions/accountActions';
 
@@ -16,12 +16,32 @@ class App extends Component {
     };
 
     componentDidMount() {
-        debugger;
-        let key = encrypt('token');
-        if (localStorage.hasOwnProperty(key)) {
-            let accountKey = encrypt('account');
-            let account = localStorage.getItem(accountKey);
-            let token = localStorage.getItem(key);
+        let token = '';
+        let account = null;
+
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            let string = decrypt(key);
+            if (string === 'token') {
+                if (token !== '') {
+                    // database is trash because we have more than one key stored.
+                    localStorage.clear();
+                    break;
+                }
+                token = localStorage.getItem(key);
+                token = decrypt(token);
+            } else if (string === 'account') {
+                if (account !== null) {
+                    localStorage.clear();
+                    break;
+                }
+                account = localStorage.getItem(key);
+                account = decrypt(account);
+                account = JSON.parse(account);
+            }
+        }
+
+        if (token !== '' && account !== null) {
             this.props.authenticateFromLocalStorage(token);
             this.props.loggedIn(account);
         }

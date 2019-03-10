@@ -13,8 +13,6 @@ export const AUTHENTICATED_FROM_LOCAL_STORAGE =
 let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
-    debugger;
-
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
     request()
         .post('/auth/login', {
@@ -23,7 +21,6 @@ export const checkAuthentication = account => async dispatch => {
             type: 'user',
         })
         .then(res => {
-            debugger;
             if (account.rememberMe) {
                 let key = encrypt('token');
                 let tokenValue = encrypt(res.data.token);
@@ -36,14 +33,11 @@ export const checkAuthentication = account => async dispatch => {
             dispatch(actionCreator(LOGGED_IN, res.data.userInfo));
         })
         .catch(err => {
-            debugger;
             dispatch(actionCreator(ERROR, err));
         });
 };
 
 export const submitRegistration = account => async dispatch => {
-    debugger;
-
     request()
         .post('/auth/register', account)
         .then(res => {

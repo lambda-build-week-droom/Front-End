@@ -16,7 +16,6 @@ class RegistrationForm extends Component {
     };
 
     handleSubmit = e => {
-        debugger;
         e.preventDefault();
         let account = {};
         let errors = [];
