@@ -6,14 +6,14 @@ import { classNames } from 'classnames';
 function DroomButton(props) {
     const { classes } = props;
     return (
-        <Button {...props} variant="contained" className={classes.button}>
+        <Button {...props} variant="contained" className={classes.root}>
             {props.text}
         </Button>
     );
 }
 
 const styles = theme => ({
-    button: {
+    root: {
         color: 'grey',
     },
 });
