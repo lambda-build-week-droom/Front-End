@@ -41,23 +41,7 @@ class RegistrationForm extends Component {
         }
 
         this.props.submitRegistration(account);
-        this.props.onClose();
-    };
-
-    getFormNameProperties = () => {
-        if (this.state.registrationCompany) {
-            return <InputText label={'Company Name'} />;
-        } else {
-            return (
-                <>
-                    <InputText
-                        label={'First Name'}
-                        errors={this.state.errors}
-                    />
-                    <InputText label={'Last Name'} errors={this.state.errors} />
-                </>
-            );
-        }
+        this.props.switch();
     };
 
     render() {
@@ -80,7 +64,6 @@ class RegistrationForm extends Component {
                     }
                     label="Company"
                 />
-                {this.getFormNameProperties()}
                 <InputText
                     label={'Email'}
                     type={'email'}
@@ -95,6 +78,7 @@ class RegistrationForm extends Component {
                 />
 
                 <DroomButton text={'Submit'} type={'submit'} />
+                <DroomButton text={'Login'} onClick={this.props.switch} />
                 {this.state.errors.includes('text') && (
                     <p>{this.state.errors['text']}</p>
                 )}
