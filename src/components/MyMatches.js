@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import Avatar from './Avatar';
+import Avatar from './AvatarComponent';
 import MatchesStream from './MatchesStream';
 
 class MyMatches extends Component {
     state = {};
 
     render() {
+        const { classes } = this.props;
         return (
-            <div>
-                <Avatar />
+            <div className={classes.root}>
+                <Avatar avatar={{ title: 'My Avatar' }} />
                 <MatchesStream />
             </div>
         );
@@ -19,7 +20,11 @@ class MyMatches extends Component {
 }
 
 const styles = {
-    root: {},
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
 };
 
 MyMatches.propTypes = {};

@@ -2,11 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
+import MainStreamCard from './MainStreamCard';
+import faker from 'faker';
 
 class MainStream extends Component {
+    state = {
+        stream: [],
+    };
+
+    componentDidMount() {
+        let streams = [];
+        for (let i = 0; i < 20; i++) {
+            streams.push({
+                title: faker.fake('{{lorem.words}}'),
+                description: faker.fake('{{lorem.sentences}}'),
+            });
+        }
+
+        this.setState({ stream: streams });
+    }
+
     render() {
         const { classes } = this.props;
-        return <div className={classes.root}>Main Stream</div>;
+        return (
+            <div className={classes.root}>
+                {this.state.stream.map((card, index) => {
+                    debugger;
+                    return <MainStreamCard card={card} index={index} />;
+                })}
+            </div>
+        );
     }
 }
 
