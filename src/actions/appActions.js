@@ -14,11 +14,24 @@ let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
+    //dispatch(actionCreator(AUTHENTICATED, 'afhdha;fheiaf;kdhaufe'));
+    // dispatch(
+    //     actionCreator(LOGGED_IN, {
+    //         id: 1,
+    //         firstName: 'Orlando',
+    //         lastName: 'Nitzsche',
+    //         occupation: 'Regional Functionality Strategist',
+    //         experience: 'experience',
+    //         interests: 'interests',
+    //     })
+    // );
+
+    debugger;
+
     request()
         .post('/auth/login', {
             email: account.email,
             password: account.password,
-            type: 'user',
         })
         .then(res => {
             if (account.rememberMe) {
@@ -38,8 +51,13 @@ export const checkAuthentication = account => async dispatch => {
 };
 
 export const submitRegistration = account => async dispatch => {
+    debugger;
     request()
-        .post('/auth/register', account)
+        .post('/auth/register', {
+            email: account.email,
+            password: account.password,
+            type: account.type,
+        })
         .then(res => {
             dispatch(actionCreator(REGISTERED));
         })

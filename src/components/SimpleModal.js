@@ -49,9 +49,7 @@ const SimpleModal = props => {
                     props.open &&
                     props.getModalContent(props)}
                 {!!props.error && (
-                    <p className={classes.error}>
-                        {props.error.response.data.message}
-                    </p>
+                    <p className={classes.error}>{props.error.message}</p>
                 )}
             </div>
         </Modal>

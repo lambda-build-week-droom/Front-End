@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { updateAccountInfo } from '../actions/accountActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Grid, Hidden } from '@material-ui/core';
 import SimpleModal from '../components/SimpleModal';
 import AccountForm from '../components/AccountForm';
 import Spinner from '../components/Spinner';
+import MainStream from '../components/MainStream';
+import MyMatches from '../components/MyMatches';
+import Navigation from '../components/Navigation';
 
 class Main extends Component {
     state = {
@@ -16,6 +19,7 @@ class Main extends Component {
     };
 
     componentDidMount() {
+        debugger;
         if (this.compareObjects(this.props.account, {})) {
             this.setState({ needsInfo: true, account: this.props.account });
         }
@@ -62,43 +66,49 @@ class Main extends Component {
     };
 
     render() {
-        if (this.props.updatingAccountInfo) {
-            return (
-                <SimpleModal
-                    open={this.state.needsInfo}
-                    onClose={this.closeModal}
-                    getModalContent={this.getModalContent}
-                    title={'Updating information.'}
-                    subtitle={'Please be patient...'}
-                    modalType={'spinner'}
-                />
-            );
-        }
-
+        const { classes } = this.props;
         return (
-            <div>
-                <SimpleModal
-                    open={this.state.needsInfo}
-                    onClose={this.closeModal}
-                    getModalContent={this.getModalContent}
-                    title={'Account Information'}
-                    subtitle={'Please fill out the form below.'}
-                    modalType={'form'}
-                />
-                Main
+            <div className={classes.root}>
+                <Grid container spacing={24}>
+                    <Hidden xsDown>
+                        <Grid item sm={6} md={4}>
+                            <MyMatches />
+                        </Grid>
+                    </Hidden>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={4}
+                        className={classes.centerGrid}
+                    >
+                        <h1>Main</h1>
+                        <MainStream />
+                    </Grid>
+                    <Hidden smDown>
+                        <Grid item md={4}>
+                            <Navigation />
+                        </Grid>
+                    </Hidden>
+                    <SimpleModal
+                        open={this.state.needsInfo}
+                        onClose={this.closeModal}
+                        getModalContent={this.getModalContent}
+                        title={'Account Information'}
+                        subtitle={'Please fill out the form below.'}
+                        modalType={
+                            this.state.updatingUserInfo ? 'spinner' : 'form'
+                        }
+                    />
+                </Grid>
             </div>
         );
     }
 }
 
 const styles = theme => ({
-    paper: {
-        position: 'absolute',
-        width: theme.spacing.unit * 50,
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
-        outline: 'none',
+    root: {
+        // TODO ADD CSS in JS using CamelCase
     },
 });
 

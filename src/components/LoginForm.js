@@ -68,7 +68,7 @@ class LoginForm extends Component {
                     label="Remember Me"
                 />
                 <DroomButton type={'submit'} text={'Login'} />
-                <DroomButton onClick={this.props.onClose} text={'Register'} />
+                <DroomButton onClick={this.props.switch} text={'Register'} />
             </form>
         );
     }
@@ -108,7 +108,7 @@ const mapStateToProps = state => {
             errors: [error],
         };
     }
-    return { error: [] };
+    return { error: null };
 };
 
 export default connect(
