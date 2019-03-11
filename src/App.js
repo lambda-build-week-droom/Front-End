@@ -18,10 +18,16 @@ class App extends Component {
     componentDidMount() {
         let token = '';
         let account = null;
-
         for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
-            let string = decrypt(key);
+            let string = "";
+            console.log(string);
+            try {
+                string = decrypt(key);
+            }
+            catch {
+                console.log('catch');
+            }
             if (string === 'token') {
                 if (token !== '') {
                     // database is trash because we have more than one key stored.
