@@ -11,6 +11,12 @@ class Login extends Component {
         login: true,
     };
 
+    componentDidMount() {
+        if (this.props.history.location.pathname.includes('registration')) {
+            this.setState({ login: false });
+        }
+    }
+
     handleClose = () => {
         this.setState({ login: !this.state.login });
     };
@@ -31,7 +37,6 @@ class Login extends Component {
         return (
             <SimpleModal
                 open={true}
-                onClose={this.handleClose}
                 title={this.state.login ? 'Login' : 'Registration'}
                 subtitle={
                     this.state.login
@@ -41,6 +46,7 @@ class Login extends Component {
                 getModalContent={this.getModalContent}
                 login={this.state.login}
                 error={this.props.error}
+                switch={this.handleClose}
             />
         );
     }

@@ -108,7 +108,7 @@ class Main extends Component {
 const styles = theme => ({
     root: {
         // TODO ADD CSS in JS using CamelCase
-    }
+    },
 });
 
 Main.propTypes = {

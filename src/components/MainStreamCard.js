@@ -21,7 +21,6 @@ import red from '@material-ui/core/colors/red';
 import faker from 'faker';
 
 const styledBy = (property, mapping) => {
-    debugger;
     return props => mapping[props[property]];
 };
 
@@ -35,7 +34,6 @@ class MainStreamCard extends React.Component {
     };
 
     render() {
-        debugger;
         const { classes, index } = this.props;
         return (
             <Card

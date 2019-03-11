@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import MainStreamCard from './MainStreamCard';
+import { requestWithToken } from '../actions/axios';
+
 import faker from 'faker';
 
 class MainStream extends Component {
@@ -11,15 +13,16 @@ class MainStream extends Component {
     };
 
     componentDidMount() {
-        let streams = [];
-        for (let i = 0; i < 20; i++) {
-            streams.push({
-                title: faker.fake('{{lorem.words}}'),
-                description: faker.fake('{{lorem.sentences}}'),
-            });
-        }
-
-        this.setState({ stream: streams });
+        requestWithToken(this.props.token)
+            .post('/users')
+            .then(res => {
+                this.setState(state => {
+                    return {
+                        stream: res.data,
+                    };
+                });
+            })
+            .catch(error => console.log(error));
     }
 
     render() {
@@ -27,7 +30,6 @@ class MainStream extends Component {
         return (
             <div className={classes.root}>
                 {this.state.stream.map((card, index) => {
-                    debugger;
                     return <MainStreamCard card={card} index={index} />;
                 })}
             </div>
@@ -44,7 +46,10 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        token: state.appReducer.token,
+        accountId: state.accountReducer.account.id,
+    };
 }
 
 export default connect(
