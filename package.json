@@ -36,6 +36,7 @@
         "not op_mini all"
     ],
     "devDependencies": {
+        "faker": "^4.1.0",
         "redux-logger": "^3.0.6"
     }
 }

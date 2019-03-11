@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 
 const Navigation = props => {
     const { classes } = props;
-    return <div className={classes.root}>Side Navigation</div>;
+    return <h1>Side Nav</h1>;
 };
 
 Navigation.propTypes = {

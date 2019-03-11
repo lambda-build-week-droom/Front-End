@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { updateAccountInfo } from '../actions/accountActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles, Grid, Hidden } from '@material-ui/core';
 import SimpleModal from '../components/SimpleModal';
 import AccountForm from '../components/AccountForm';
 import Spinner from '../components/Spinner';
-import MyMatches from '../components/MyMatches';
 import MainStream from '../components/MainStream';
+import MyMatches from '../components/MyMatches';
 import Navigation from '../components/Navigation';
 
 class Main extends Component {
@@ -69,25 +69,37 @@ class Main extends Component {
         return (
             <div className={classes.root}>
                 <Grid container spacing={24}>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <MyMatches />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
+                    <Hidden xsDown>
+                        <Grid item sm={6} md={4}>
+                            <MyMatches />
+                        </Grid>
+                    </Hidden>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={4}
+                        className={classes.centerGrid}
+                    >
                         <h1>Main</h1>
                         <MainStream />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <Navigation />
-                    </Grid>
+                    <Hidden smDown>
+                        <Grid item md={4}>
+                            <Navigation />
+                        </Grid>
+                    </Hidden>
+                    <SimpleModal
+                        open={this.state.needsInfo}
+                        onClose={this.closeModal}
+                        getModalContent={this.getModalContent}
+                        title={'Account Information'}
+                        subtitle={'Please fill out the form below.'}
+                        modalType={
+                            this.state.updatingUserInfo ? 'spinner' : 'form'
+                        }
+                    />
                 </Grid>
-                <SimpleModal
-                    open={this.state.needsInfo}
-                    onClose={this.closeModal}
-                    getModalContent={this.getModalContent}
-                    title={'Account Information'}
-                    subtitle={'Please fill out the form below.'}
-                    modalType={this.state.updatingUserInfo ? 'spinner' : 'form'}
-                />
             </div>
         );
     }
