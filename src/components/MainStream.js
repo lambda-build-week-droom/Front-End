@@ -13,15 +13,14 @@ class MainStream extends Component {
     };
 
     componentDidMount() {
+        debugger;
+        let url = '/companies';
+        if (this.props.account.hasOwnProperty('firstName')) {
+            url = '/users';
+        }
         requestWithToken(this.props.token)
-            .post('/users')
-            .then(res => {
-                this.setState(state => {
-                    return {
-                        stream: res.data,
-                    };
-                });
-            })
+            .get(url)
+            .then(res => this.setState({ stream: res.data }))
             .catch(error => console.log(error));
     }
 
@@ -30,6 +29,9 @@ class MainStream extends Component {
         return (
             <div className={classes.root}>
                 {this.state.stream.map((card, index) => {
+                    if (index > 5) {
+                        return;
+                    }
                     return <MainStreamCard card={card} index={index} />;
                 })}
             </div>
@@ -48,7 +50,7 @@ const styles = {
 function mapStateToProps(state) {
     return {
         token: state.appReducer.token,
-        accountId: state.accountReducer.account.id,
+        account: state.accountReducer.account,
     };
 }
 

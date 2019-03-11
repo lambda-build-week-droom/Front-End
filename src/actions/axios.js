@@ -14,7 +14,7 @@ export const requestWithToken = token => {
         baseURL: 'https://droom-backend.herokuapp.com',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            authorization: token,
         },
     });
 };
