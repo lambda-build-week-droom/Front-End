@@ -20,14 +20,16 @@ const InputText = ({
     fullWidth = false,
     name = null,
     errors = [],
+    classes,
+    ...rest
 }) => (
     <TextField
+        {...rest}
         multiline={multiLine}
         name={!!name ? name : getName(label)}
         label={label}
         className={classes.textField}
         margin="normal"
-        variant="outlined"
         rows={rows}
         fullWidth={fullWidth}
         error={errors.includes(getName(label))}

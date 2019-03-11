@@ -6,6 +6,7 @@ export const UPDATING_ACCOUNT_INFO = 'UPDATING_ACCOUNT_INFO';
 export const ACCOUNT_INFORMATION_UPDATED = 'ACCOUNT_INFORMATION_UPDATED';
 export const ERROR = 'ERROR';
 export const REGISTERED = 'REGISTERED';
+export const LOGGED_IN = 'LOGGED_IN';
 
 let registered = [];
 
@@ -17,8 +18,14 @@ export const updateAccountInfo = account => async dispatch => {
 
     //TODO: set user information to user data returned from database.
     setTimeout(() => {
-        debugger;
         let account = { ...account };
         dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
     }, 1000);
+};
+
+export const loggedIn = account => {
+    return {
+        type: LOGGED_IN,
+        payload: account,
+    };
 };

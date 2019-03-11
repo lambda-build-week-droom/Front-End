@@ -22,10 +22,14 @@ const styles = theme => ({
         padding: theme.spacing.unit * 4,
         outline: 'none',
     },
+    error: {
+        color: 'red',
+    },
 });
 
 const SimpleModal = props => {
     const { classes } = props;
+
     return (
         <Modal
             aria-labelledby="simple-modal-title"
@@ -44,6 +48,11 @@ const SimpleModal = props => {
                 {!!props.getModalContent &&
                     props.open &&
                     props.getModalContent(props)}
+                {!!props.error && (
+                    <p className={classes.error}>
+                        {props.error.response.data.message}
+                    </p>
+                )}
             </div>
         </Modal>
     );
