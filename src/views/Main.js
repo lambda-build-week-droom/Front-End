@@ -19,7 +19,6 @@ class Main extends Component {
     };
 
     componentDidMount() {
-        debugger;
         if (this.compareObjects(this.props.account, {})) {
             this.setState({ needsInfo: true, account: this.props.account });
         }
