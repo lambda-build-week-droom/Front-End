@@ -13,8 +13,8 @@ export const approveMatch = accountId => async dispatch => {
 };
 
 export const getStream = (token, accountType) => async dispatch => {
-    let url = '/companies';
-    if (accountType === 'user') {
+    let url = '/jobs';
+    if (accountType === 'company') {
         url = '/users';
     }
     requestWithToken(token)

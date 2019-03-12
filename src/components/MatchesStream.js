@@ -17,8 +17,8 @@ class MatchesStream extends React.Component {
         return (
             <div className={classes.root}>
                 Matches Stream
-                {this.state.matches.map(match => {
-                    return <Avatar avatar={match} />;
+                {this.state.matches.map((match, index) => {
+                    return <Avatar key={index} avatar={match} />;
                 })}
             </div>
         );
