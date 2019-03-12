@@ -19,7 +19,6 @@ class Main extends Component {
     };
 
     componentDidMount() {
-        debugger;
         if (this.compareObjects(this.props.account, {})) {
             this.setState({ needsInfo: true, account: this.props.account });
         }
@@ -108,6 +107,9 @@ class Main extends Component {
 const styles = theme => ({
     root: {
         // TODO ADD CSS in JS using CamelCase
+    },
+    centerGrid: {
+        position: 'relative',
     },
 });
 

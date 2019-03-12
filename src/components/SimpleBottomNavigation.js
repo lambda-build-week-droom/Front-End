@@ -10,7 +10,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import PreviousIcon from '@material-ui/icons/NavigateBefore';
 import NextIcon from '@material-ui/icons/NavigateNext';
 
-
 const styles = {
     root: {
         width: 500,
@@ -37,9 +36,15 @@ class SimpleBottomNavigation extends React.Component {
                 showLabels
                 className={classes.root}
             >
-                <BottomNavigationAction label="Previous" icon={<PreviousIcon />} />
+                <BottomNavigationAction
+                    label="Previous"
+                    icon={<PreviousIcon />}
+                />
                 <BottomNavigationAction label="Nearby" icon={<DeleteIcon />} />
-                <BottomNavigationAction label="Schedule Call" icon={<CallIcon />} />
+                <BottomNavigationAction
+                    label="Schedule Call"
+                    icon={<CallIcon />}
+                />
                 <BottomNavigationAction label="Next" icon={<NextIcon />} />
             </BottomNavigation>
         );

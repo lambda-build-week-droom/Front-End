@@ -4,41 +4,41 @@ import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import MainStreamCard from './MainStreamCard';
 import { requestWithToken } from '../actions/axios';
+import { getStream } from '../actions/matchActions';
 
 import faker from 'faker';
 
 class MainStream extends Component {
-    state = {
-        stream: [],
-    };
-
     componentDidMount() {
-        let streams = [];
-        for (let i = 0; i < 5; i++) {
-            streams.push({
-                title: faker.fake('{{lorem.words}}'),
-                description: faker.fake('{{lorem.sentences}}'),
-            });
+        let accountType = 'user';
+
+        if (this.props.account.hasOwnProperty('companyName')) {
+            accountType = 'company';
         }
-        let url = "/jobs";
-        if (this.props.account.hasOwnProperty("companyName")) {
-            url = "/users";
+        this.props.getStream(this.props.token, accountType);
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        if (nextProps.stream !== this.props.stream) {
+            return true;
         }
-        requestWithToken(this.props.token)
-            .get(url)
-            .then(res => this.setState({ stream: res.data }))
-            .catch(error => console.log(error));
     }
 
     render() {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                {this.state.stream.map((card, index) => {
+                {this.props.stream.map((card, index) => {
                     if (index > 5) {
                         return;
                     }
-                    return <MainStreamCard card={card} index={index} />;
+                    return (
+                        <MainStreamCard
+                            key={card.id}
+                            card={card}
+                            index={index}
+                        />
+                    );
                 })}
             </div>
         );
@@ -57,10 +57,11 @@ function mapStateToProps(state) {
     return {
         token: state.appReducer.token,
         account: state.accountReducer.account,
+        stream: state.matchReducer.stream,
     };
 }
 
 export default connect(
     mapStateToProps,
-    {}
+    { getStream }
 )(withStyles(styles)(MainStream));

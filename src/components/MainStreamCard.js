@@ -1,68 +1,118 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import {
-    withStyles,
-    Typography,
-    Card,
-    CardHeader,
-    Avatar,
-    CardMedia,
-    CardContent,
-    IconButton,
-    CardActions,
-    Collapse,
-} from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { withStyles, Card, CardHeader, CardMedia } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
 import faker from 'faker';
+import Hammer from 'react-hammerjs';
+import { connect } from 'react-redux';
+import { approveMatch, disApproveMatch } from '../actions/matchActions';
 import ControlledExpansionPanel from './ControlledExpansionPanel';
 import SimpleBottomNavigation from './SimpleBottomNavigation';
 import Chip from './Chip';
 
-const styledBy = (property, mapping) => {
-    return props => mapping[props[property]];
-};
-
 class MainStreamCard extends React.Component {
     state = {
         expanded: false,
+        cardRef: React.createRef(),
+        isDragging: false,
+        xPosition: 50,
+        title: faker.fake('{{lorem.words}}'),
+        imageAvatar: faker.fake('{{image.avatar}}'),
+        image: faker.fake('{{image.image}}'),
+        city: faker.fake('{{address.city}}'),
     };
 
-    handleExpandClick = () => {
-        this.setState(state => ({ expanded: !state.expanded }));
+    onDoubleTap = () => {
+        this.props.approveMatch(this.props.card.id);
+    };
+
+    onPanEnd = () => {
+        this.setState({ xPosition: 50 });
+    };
+
+    onSwipe = props => {
+        if (props.direction !== 2) {
+            return;
+        }
+        this.props.disApproveMatch(this.props.card.id);
+    };
+
+    onPan = props => {
+        let deltaX = props.deltaX / 100;
+        console.log(this.state.xPosition);
+        if (this.state.xPosition > 90) {
+            if (deltaX <= 0) {
+                return;
+            }
+        }
+
+        if (this.state.xPosition < 30) {
+            if (deltaX >= 0) {
+                return;
+            }
+        }
+
+        if (props.isFinal) {
+            this.onPanEnd();
+            return;
+        }
+
+        this.setState(state => {
+            return {
+                xPosition: state.xPosition - deltaX,
+            };
+        });
     };
 
     render() {
         const { classes, index } = this.props;
+        const options = {
+            touchAction: 'compute',
+            recognizers: {
+                tap: {
+                    time: 600,
+                    threshold: 100,
+                },
+            },
+        };
         return (
-            <Card
-                className={classes.card}
-                style={{
-                    //TODO: ADD CSS Styles
-                    position: 'static',
-                    width: '100vw',
-                    margin: '0 auto 40px'
-                }}
+            <Hammer
+                onDoubleTap={this.onDoubleTap}
+                onSwipe={this.onSwipe}
+                onPan={this.onPan}
+                onPanEnd={this.onPanEnd}
+                options={options}
             >
-                <CardHeader
-                    //TODO change title to first & last name. 
-                    //TODO update second line to city
-                    title={faker.name.jobTitle()}
-                    subheader={`${faker.address.city()}`}
-                />
-                <CardMedia
-                    className={classes.media}
-                    image={faker.fake('{{image.avatar}}')}
-                    title="Paella dish"
-                />
-                <Chip />
-                <ControlledExpansionPanel />
-                <SimpleBottomNavigation />
-            </Card>
+                <div>
+                    <Card
+                        className={classes.card}
+                        style={{
+                            //TODO: ADD CSS Styles
+                            width: '100vw',
+                            margin: '0 auto 40px',
+                            zIndex: `${-index}`,
+                            transform: `translate(-${
+                                this.state.xPosition / 25
+                                }%, -2%) rotateZ(${index})`,
+                        }}
+                    >
+                        <CardHeader
+                            //TODO change title to first & last name.
+                            //TODO update second line to city
+                            title={this.state.title}
+                            subheader={this.state.city}
+                        />
+                        <CardMedia
+                            className={classes.media}
+                            image={this.state.image}
+                            title="Paella dish"
+                        />
+                        <Chip />
+                        <ControlledExpansionPanel />
+                        <SimpleBottomNavigation />
+                    </Card>
+                </div>
+            </Hammer>
         );
     }
 }
@@ -75,11 +125,12 @@ MainStreamCard.propTypes = {
 const styles = theme => ({
     card: {
         position: 'absolute',
-        top: '50%',
-        left: '50%',
+        top: '10%',
+        left: '20%',
         maxWidth: 500,
-        transform: `translate(-50%, -50%), rotateZ(2deg)`,
+        transition: 'all .5s',
     },
+
     media: {
         height: 300,
     },
@@ -101,4 +152,7 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(MainStreamCard);
+export default connect(
+    null,
+    { approveMatch, disApproveMatch }
+)(withStyles(styles)(MainStreamCard));
