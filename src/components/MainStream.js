@@ -20,6 +20,10 @@ class MainStream extends Component {
                 description: faker.fake('{{lorem.sentences}}'),
             });
         }
+        let url = "/jobs";
+        if (this.props.account.hasOwnProperty("companyName")) {
+            url = "/users";
+        }
         requestWithToken(this.props.token)
             .get(url)
             .then(res => this.setState({ stream: res.data }))
