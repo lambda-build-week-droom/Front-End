@@ -41,7 +41,7 @@ class RegistrationForm extends Component {
         }
 
         this.props.submitRegistration(account);
-        this.props.onClose();
+        this.props.switch();
     };
 
     render() {
@@ -78,6 +78,7 @@ class RegistrationForm extends Component {
                 />
 
                 <DroomButton text={'Submit'} type={'submit'} />
+                <DroomButton text={'Login'} onClick={this.props.switch} />
                 {this.state.errors.includes('text') && (
                     <p>{this.state.errors['text']}</p>
                 )}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import './App.scss';
 import Main from './views/Main';
@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { decrypt, encrypt } from './components/Cryptr';
 import { authenticateFromLocalStorage } from './actions/appActions';
 import { loggedIn } from './actions/accountActions';
+import Profile from './views/Profile';
 
 class App extends Component {
     state = {
@@ -20,12 +21,11 @@ class App extends Component {
         let account = null;
         for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
-            let string = "";
+            let string = '';
             console.log(string);
             try {
                 string = decrypt(key);
-            }
-            catch {
+            } catch {
                 console.log('catch');
             }
             if (string === 'token') {
@@ -50,17 +50,23 @@ class App extends Component {
         if (token !== '' && account !== null) {
             this.props.authenticateFromLocalStorage(token);
             this.props.loggedIn(account);
+            this.props.history.push('/main');
         }
     }
 
     render() {
         return (
             <div className="App">
-                <Route to={'/login'} component={Login} />
+                <Route exact path={'/login/:type'} component={Login} />
+                <PrivateRoute
+                    path={'/'}
+                    component={Main}
+                    authenticated={this.props.authenticated}
+                />
                 <PrivateRoute
                     exact
-                    to={'/'}
-                    component={Main}
+                    path={'/profile/:id'}
+                    component={Profile}
                     authenticated={this.props.authenticated}
                 />
             </div>
@@ -71,7 +77,9 @@ class App extends Component {
 const mapStateToProps = state => ({
     authenticated: state.appReducer.authenticated,
 });
-export default connect(
-    mapStateToProps,
-    { authenticateFromLocalStorage, loggedIn }
-)(App);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        { authenticateFromLocalStorage, loggedIn }
+    )(App)
+);

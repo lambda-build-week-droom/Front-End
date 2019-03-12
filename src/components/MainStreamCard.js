@@ -24,7 +24,6 @@ import SimpleBottomNavigation from './SimpleBottomNavigation';
 import Chip from './Chip';
 
 const styledBy = (property, mapping) => {
-    debugger;
     return props => mapping[props[property]];
 };
 
@@ -38,7 +37,6 @@ class MainStreamCard extends React.Component {
     };
 
     render() {
-        debugger;
         const { classes, index } = this.props;
         return (
             <Card

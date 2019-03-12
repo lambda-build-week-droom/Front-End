@@ -14,40 +14,36 @@ let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
-    dispatch(actionCreator(AUTHENTICATED, "afhdha;fheiaf;kdhaufe"));
-    dispatch(actionCreator(LOGGED_IN, {
-        id: 1,
-        firstName: 'Orlando',
-        lastName: 'Nitzsche',
-        occupation: 'Regional Functionality Strategist',
-        experience: 'experience',
-        interests: 'interests',
-    }));
-    //     request()
-    //         .post('/auth/login', {
-    //             email: account.email,
-    //             password: account.password,
-    //         })
-    //         .then(res => {
-    //             if (account.rememberMe) {
-    //                 let key = encrypt('token');
-    //                 let tokenValue = encrypt(res.data.token);
-    //                 localStorage.setItem(key, tokenValue);
-    //                 let account = encrypt(JSON.stringify(res.data.userInfo));
-    //                 let accountKey = encrypt('account');
-    //                 localStorage.setItem(accountKey, account);
-    //             }
-    //             dispatch(actionCreator(AUTHENTICATED, res.data.token));
-    //             dispatch(actionCreator(LOGGED_IN, res.data.userInfo));
-    //         })
-    //         .catch(err => {
-    //             dispatch(actionCreator(ERROR, err));
-    //         });
+    request()
+        .post('/auth/login', {
+            email: account.email,
+            password: account.password,
+        })
+        .then(res => {
+            if (account.rememberMe) {
+                let key = encrypt('token');
+                let tokenValue = encrypt(res.data.token);
+                localStorage.setItem(key, tokenValue);
+                let account = encrypt(JSON.stringify(res.data.userInfo));
+                let accountKey = encrypt('account');
+                localStorage.setItem(accountKey, account);
+            }
+            dispatch(actionCreator(AUTHENTICATED, res.data.token));
+            dispatch(actionCreator(LOGGED_IN, res.data.userInfo));
+        })
+        .catch(err => {
+            dispatch(actionCreator(ERROR, err));
+        });
 };
 
 export const submitRegistration = account => async dispatch => {
+    debugger;
     request()
-        .post('/auth/register', account)
+        .post('/auth/register', {
+            email: account.email,
+            password: account.password,
+            type: account.type,
+        })
         .then(res => {
             dispatch(actionCreator(REGISTERED));
         })
