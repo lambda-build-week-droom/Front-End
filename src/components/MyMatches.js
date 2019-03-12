@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import Avatar from './AvatarComponent';
+import AvatarComponent from './AvatarComponent';
 import MatchesStream from './MatchesStream';
 
 class MyMatches extends Component {
@@ -12,7 +12,10 @@ class MyMatches extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Avatar avatar={{ title: 'My Avatar' }} />
+                <AvatarComponent
+                    key={'my-avatar'}
+                    avatar={{ title: 'My Avatar' }}
+                />
                 <MatchesStream />
             </div>
         );

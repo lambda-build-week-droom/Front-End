@@ -59,7 +59,7 @@ class App extends Component {
             <div className="App">
                 <Route exact path={'/login/:type'} component={Login} />
                 <PrivateRoute
-                    path={'/'}
+                    path={'/main'}
                     component={Main}
                     authenticated={this.props.authenticated}
                 />
