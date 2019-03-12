@@ -11,6 +11,7 @@ class Profile extends Component {
     };
 
     componentDidMount() {
+        debugger;
         let id = this.props.match.params.id;
         let profileOwner = false;
         if (id === this.props.accountId) {

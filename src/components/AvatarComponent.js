@@ -6,37 +6,68 @@ import {
     CardHeader,
     IconButton,
     Avatar,
+    Popover,
+    Typography,
 } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import faker from 'faker';
 import moment from 'moment';
+import SimplePopover from './SimplePopOver';
+import { Link } from 'react-router-dom';
 
-const AvatarComponent = props => {
-    const { classes } = props;
-    return (
-        <Card className={classes.card}>
-            <CardHeader
-                avatar={
-                    <Avatar
-                        aria-label={props.avatar.title}
-                        className={classes.bigAvatar}
-                        src={faker.fake('{{image.avatar}}')}
-                    />
-                }
-                action={
-                    <IconButton>
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={props.avatar.title}
-                subheader={moment(faker.fake('{{date.past}}')).format(
-                    'dddd, MMMM Do YYYY'
-                )}
-            />
-        </Card>
-    );
-};
+class AvatarComponent extends React.Component {
+    state = {
+        popOverElement: null,
+    };
+
+    handlePopOverClose = () => {
+        this.setState({ popOverElement: null });
+    };
+
+    handleVertIconClick = event => {
+        this.setState({
+            popOverElement: event.currentTarget,
+        });
+    };
+
+    getPopOverContent = id => {
+        debugger;
+        return <Link to={`/profile/${id}`}>View Profile</Link>;
+    };
+
+    render() {
+        const { classes } = this.props;
+        return (
+            <Card className={classes.card}>
+                <CardHeader
+                    avatar={
+                        <Avatar
+                            aria-label={this.props.avatar.title}
+                            className={classes.bigAvatar}
+                            src={faker.fake('{{image.avatar}}')}
+                        />
+                    }
+                    action={
+                        <IconButton onClick={this.handleVertIconClick}>
+                            <MoreVertIcon />
+                            <SimplePopover
+                                anchorEl={this.state.popOverElement}
+                                handleClose={this.handlePopOverClose}
+                                getContent={this.getPopOverContent}
+                                id={this.props.avatar.id}
+                            />
+                        </IconButton>
+                    }
+                    title={this.props.avatar.title}
+                    subheader={moment(faker.fake('{{date.past}}')).format(
+                        'dddd, MMMM Do YYYY'
+                    )}
+                />
+            </Card>
+        );
+    }
+}
 
 AvatarComponent.propTypes = {
     classes: PropTypes.object.isRequired,

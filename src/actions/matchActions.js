@@ -5,6 +5,8 @@ export const APPROVE_MATCH = 'APPROVE_MATCH';
 export const MATCHES_FETCHED = 'MATCHES_FETCHED';
 export const MATCH_ERROR = 'MATCH_ERROR';
 export const DISAPPROVE_MATCH = 'DISAPPROVE_MATCH';
+export const FETCHED_CURRENT_MATCHES = 'FETCHED_CURRENT_MATCHES';
+export const CURRENT_MATCHES_ERROR = 'CURRENT_MATCHES_ERROR';
 
 export const approveMatch = accountId => async dispatch => {
     //TODO: tie in to backend to communicate matches.
@@ -27,4 +29,22 @@ export const disApproveMatch = accountId => async dispatch => {
     //TODO: send disapproval to backend.
 
     dispatch(actionCreator(DISAPPROVE_MATCH, accountId));
+};
+
+export const getCurrentMatches = (token, accountType) => async dispatch => {
+    debugger;
+    let url = '/jobs';
+    if (accountType === 'company') {
+        url = '/users';
+    }
+
+    // back end doesn't know how to store or get me just the matches so I have
+    // have to collect all the data of either all the users or all of the jobs.
+    // TODO: change if backend figures it out or sort data if backend doesn't
+    requestWithToken(token)
+        .get(url)
+        .then(res => {
+            dispatch(actionCreator(FETCHED_CURRENT_MATCHES, res.data));
+        })
+        .catch(err => actionCreator(CURRENT_MATCHES_ERROR, err));
 };

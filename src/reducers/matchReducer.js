@@ -3,10 +3,12 @@ import {
     MATCH_ERROR,
     MATCHES_FETCHED,
     DISAPPROVE_MATCH,
+    FETCHED_CURRENT_MATCHES,
 } from '../actions/matchActions';
 
 const initialState = {
     stream: [],
+    currentMatches: [],
     error: null,
 };
 
@@ -21,7 +23,9 @@ export const matchReducer = (state = initialState, action) => {
                 stream,
             };
         case MATCHES_FETCHED:
-            return { stream: action.payload, error: null };
+            return { ...state, stream: action.payload, error: null };
+        case FETCHED_CURRENT_MATCHES:
+            return { ...state, currentMatches: action.payload, error: null };
         case DISAPPROVE_MATCH:
             let thisStream = state.stream.filter(
                 account => account.id !== action.payload
