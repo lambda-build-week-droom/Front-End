@@ -44,22 +44,6 @@ class RegistrationForm extends Component {
         this.props.onClose();
     };
 
-    getFormNameProperties = () => {
-        if (this.state.registrationCompany) {
-            return <InputText label={'Company Name'} />;
-        } else {
-            return (
-                <>
-                    <InputText
-                        label={'First Name'}
-                        errors={this.state.errors}
-                    />
-                    <InputText label={'Last Name'} errors={this.state.errors} />
-                </>
-            );
-        }
-    };
-
     render() {
         const { classes } = this.props;
         return (
@@ -80,7 +64,6 @@ class RegistrationForm extends Component {
                     }
                     label="Company"
                 />
-                {this.getFormNameProperties()}
                 <InputText
                     label={'Email'}
                     type={'email'}

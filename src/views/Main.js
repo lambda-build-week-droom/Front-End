@@ -81,7 +81,6 @@ class Main extends Component {
                         md={4}
                         className={classes.centerGrid}
                     >
-                        <h1>Main</h1>
                         <MainStream />
                     </Grid>
                     <Hidden smDown>

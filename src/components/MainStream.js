@@ -12,7 +12,7 @@ class MainStream extends Component {
 
     componentDidMount() {
         let streams = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 5; i++) {
             streams.push({
                 title: faker.fake('{{lorem.words}}'),
                 description: faker.fake('{{lorem.sentences}}'),
@@ -27,7 +27,6 @@ class MainStream extends Component {
         return (
             <div className={classes.root}>
                 {this.state.stream.map((card, index) => {
-                    debugger;
                     return <MainStreamCard card={card} index={index} />;
                 })}
             </div>
@@ -40,7 +39,7 @@ MainStream.propTypes = {
 };
 
 const styles = {
-    root: {},
+    root: { width: '40vw' },
 };
 
 function mapStateToProps(state) {
