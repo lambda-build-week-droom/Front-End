@@ -50,7 +50,7 @@ class App extends Component {
         if (token !== '' && account !== null) {
             this.props.authenticateFromLocalStorage(token);
             this.props.loggedIn(account);
-            this.props.history.push('/main');
+            this.props.history.push('/');
         }
     }
 
@@ -59,7 +59,8 @@ class App extends Component {
             <div className="App">
                 <Route exact path={'/login/:type'} component={Login} />
                 <PrivateRoute
-                    path={'/main'}
+                    exact
+                    path={'/'}
                     component={Main}
                     authenticated={this.props.authenticated}
                 />
