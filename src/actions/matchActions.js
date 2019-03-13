@@ -52,7 +52,6 @@ export const disApproveMatch = accountId => async dispatch => {
 };
 
 export const getCurrentMatches = (token, accountType) => async dispatch => {
-    debugger;
     let url = '/jobs';
     if (accountType === 'company') {
         url = '/users';
@@ -64,7 +63,6 @@ export const getCurrentMatches = (token, accountType) => async dispatch => {
     requestWithToken(token)
         .get(url)
         .then(res => {
-            debugger;
             dispatch(actionCreator(FETCHED_CURRENT_MATCHES, res.data));
         })
         .catch(err => actionCreator(CURRENT_MATCHES_ERROR, err));

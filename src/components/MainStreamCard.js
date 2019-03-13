@@ -100,7 +100,7 @@ class MainStreamCard extends React.Component {
                 },
             },
         };
-        debugger;
+
         return (
             <Hammer
                 onDoubleTap={this.onDoubleTap}

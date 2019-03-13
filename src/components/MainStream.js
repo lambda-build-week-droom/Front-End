@@ -23,12 +23,11 @@ class MainStream extends Component {
 
     render() {
         const { classes } = this.props;
-        debugger;
+
         return (
             <div className={classes.root}>
                 {this.props.stream.map((card, index) => {
                     if (card === undefined) {
-                        debugger;
                     }
                     if (index > 5) {
                         return;
