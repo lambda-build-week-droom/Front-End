@@ -14,17 +14,6 @@ let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
-    //dispatch(actionCreator(AUTHENTICATED, 'afhdha;fheiaf;kdhaufe'));
-    // dispatch(
-    //     actionCreator(LOGGED_IN, {
-    //         id: 1,
-    //         firstName: 'Orlando',
-    //         lastName: 'Nitzsche',
-    //         occupation: 'Regional Functionality Strategist',
-    //         experience: 'experience',
-    //         interests: 'interests',
-    //     })
-    // );
 
     request()
         .post('/auth/login', {

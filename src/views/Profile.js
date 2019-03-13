@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { requestWithToken } from '../actions/axios';
+import Chip from '../components/MainStreamCard';
+import {} from '@material-ui/core';
 
 class Profile extends Component {
     state = {
         myProfile: false,
-        account: {},
+        profile: {},
     };
 
     componentDidMount() {
-        debugger;
         let id = this.props.match.params.id;
+        this.props.history.push(`/profile/${id}`);
         let profileOwner = false;
         if (id === this.props.accountId) {
             profileOwner = true;
@@ -21,21 +23,29 @@ class Profile extends Component {
         requestWithToken(this.props.token)
             .get(`/users/${id}`)
             .then(res => {
-                this.setState({ account: res.data, myProfile: profileOwner });
+                this.setState({ profile: res.data, myProfile: profileOwner });
             });
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <div>
-                <h2>{this.state.account.id}</h2>
+            <div className={classes.root}>
+                <h1>{this.state.profile.id}</h1>
+
+                <Chip />
             </div>
         );
     }
 }
 
 const styles = {
-    root: {},
+    root: {
+        display: 'flex',
+        maxWidth: '1000px',
+        justifyContent: 'center',
+        height: '100vh',
+    },
 };
 
 Profile.propTypes = {};

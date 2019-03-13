@@ -1,5 +1,7 @@
 import { requestWithToken } from './axios';
 import actionCreator from './actionCreator';
+import faker from 'faker';
+import unsplash from './unsplash';
 
 export const APPROVE_MATCH = 'APPROVE_MATCH';
 export const MATCHES_FETCHED = 'MATCHES_FETCHED';
@@ -7,6 +9,8 @@ export const MATCH_ERROR = 'MATCH_ERROR';
 export const DISAPPROVE_MATCH = 'DISAPPROVE_MATCH';
 export const FETCHED_CURRENT_MATCHES = 'FETCHED_CURRENT_MATCHES';
 export const CURRENT_MATCHES_ERROR = 'CURRENT_MATCHES_ERROR';
+
+export const getPictures = async dispatch => {};
 
 export const approveMatch = accountId => async dispatch => {
     //TODO: tie in to backend to communicate matches.
@@ -19,9 +23,25 @@ export const getStream = (token, accountType) => async dispatch => {
     if (accountType === 'company') {
         url = '/users';
     }
+
     requestWithToken(token)
         .get(url)
-        .then(res => dispatch(actionCreator(MATCHES_FETCHED, res.data)))
+        .then(res => {
+            if (accountType === 'user') {
+                res.data = res.data.map(account => {
+                    account.imageAvatar = faker.fake('{{image.avatar}}');
+                    account.image = account.jobImg;
+                    account.city = faker.fake('{{address.city}}');
+                    account.tags = getChips();
+                    account.description = faker.fake('{{lorem.paragraph}}');
+                    account.title = account.jobTitle;
+                    account.subHeader = account.jobRequirements;
+                    return account;
+                });
+            }
+
+            dispatch(actionCreator(MATCHES_FETCHED, res.data));
+        })
         .catch(err => dispatch(actionCreator(MATCH_ERROR, err)));
 };
 
@@ -44,7 +64,18 @@ export const getCurrentMatches = (token, accountType) => async dispatch => {
     requestWithToken(token)
         .get(url)
         .then(res => {
+            debugger;
             dispatch(actionCreator(FETCHED_CURRENT_MATCHES, res.data));
         })
         .catch(err => actionCreator(CURRENT_MATCHES_ERROR, err));
 };
+
+function getChips() {
+    let number = Math.floor(Math.random() * 10);
+    let chips = [];
+    for (let i = 0; i < number; i++) {
+        chips.push(faker.fake('{{company.bsBuzz}}'));
+    }
+
+    return chips;
+}

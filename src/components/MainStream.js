@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import MainStreamCard from './MainStreamCard';
-import { requestWithToken } from '../actions/axios';
 import { getStream } from '../actions/matchActions';
-
-import faker from 'faker';
 
 class MainStream extends Component {
     componentDidMount() {
@@ -26,9 +23,13 @@ class MainStream extends Component {
 
     render() {
         const { classes } = this.props;
+        debugger;
         return (
             <div className={classes.root}>
                 {this.props.stream.map((card, index) => {
+                    if (card === undefined) {
+                        debugger;
+                    }
                     if (index > 5) {
                         return;
                     }

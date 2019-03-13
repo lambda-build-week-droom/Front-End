@@ -16,6 +16,8 @@ class App extends Component {
         view: false,
     };
 
+    componentWillMount() {}
+
     componentDidMount() {
         let token = '';
         let account = null;

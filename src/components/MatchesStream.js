@@ -17,8 +17,12 @@ class MatchesStream extends React.Component {
         this.props.getCurrentMatches(this.props.token, accountType);
     }
 
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        if (nextProps.matches !== this.props.matches) {
+        }
+    }
+
     render() {
-        debugger;
         const { classes } = this.props;
         return (
             <div className={classes.root}>
@@ -38,7 +42,7 @@ MatchesStream.propTypes = {
 const styles = {
     root: {
         overflowY: 'scroll',
-        maxHeight: '100vh',
+        maxHeight: '80vh',
     },
 };
 const mapStateToProps = state => ({

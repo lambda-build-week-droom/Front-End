@@ -9,46 +9,67 @@ import { approveMatch, disApproveMatch } from '../actions/matchActions';
 import ControlledExpansionPanel from './ControlledExpansionPanel';
 import SimpleBottomNavigation from './SimpleBottomNavigation';
 import Chip from './Chip';
+import CardDetails from './CardDetails';
 
 class MainStreamCard extends React.Component {
     state = {
         expanded: false,
-        cardRef: React.createRef(),
-        isDragging: false,
-        xPosition: 50,
-        title: faker.fake('{{lorem.words}}'),
-        imageAvatar: faker.fake('{{image.avatar}}'),
-        image: faker.fake('{{image.image}}'),
-        city: faker.fake('{{address.city}}'),
+        xPosition: 0,
+        yPosition: 50,
+        zRotation: this.props.index,
+        removingCard: false,
     };
 
     onDoubleTap = () => {
         this.props.approveMatch(this.props.card.id);
     };
 
-    onPanEnd = () => {
-        this.setState({ xPosition: 50 });
+    onPanEnd = props => {
+        if (this.state.removingCard) {
+            return;
+        }
+        this.setState({
+            xPosition: 0,
+            yPosition: 50,
+            zRotation: 0 + this.props.index,
+        });
     };
 
     onSwipe = props => {
         if (props.direction !== 2) {
             return;
         }
-        this.props.disApproveMatch(this.props.card.id);
+
+        this.setState({
+            xPosition: -50,
+            yPosition: 60,
+            zRotation: -4,
+            removingCard: true,
+        });
+        setTimeout(() => {
+            this.props.disApproveMatch(this.props.card.id);
+        }, 500);
     };
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        if (nextProps.index !== this.props.index) {
+            this.setState({ zRotation: nextProps.index });
+            return true;
+        }
+    }
 
     onPan = props => {
         let deltaX = props.deltaX / 100;
-        console.log(this.state.xPosition);
-        if (this.state.xPosition > 90) {
-            if (deltaX <= 0) {
+
+        if (this.state.xPosition < -50) {
+            if (deltaX < 0) {
                 return;
             }
         }
 
-        if (this.state.xPosition < 30) {
-            if (deltaX >= 0) {
-                return;
+        if (this.state.xPosition > 40) {
+            if (deltaX > 0) {
+                this.onPanEnd();
             }
         }
 
@@ -56,10 +77,14 @@ class MainStreamCard extends React.Component {
             this.onPanEnd();
             return;
         }
-
+        console.log('x:', this.state.xPosition);
+        console.log('y:', this.state.yPosition);
+        console.log('z:', this.state.zRotation);
         this.setState(state => {
             return {
-                xPosition: state.xPosition - deltaX,
+                xPosition: state.xPosition + deltaX,
+                yPosition: state.yPosition - deltaX / 3,
+                zRotation: state.zRotation + deltaX / 10,
             };
         });
     };
@@ -75,6 +100,7 @@ class MainStreamCard extends React.Component {
                 },
             },
         };
+        debugger;
         return (
             <Hammer
                 onDoubleTap={this.onDoubleTap}
@@ -87,29 +113,29 @@ class MainStreamCard extends React.Component {
                     <Card
                         className={classes.card}
                         style={{
-                            //TODO: ADD CSS Styles
-                            width: '100vw',
                             margin: '0 auto 40px',
                             zIndex: `${-index}`,
-                            transform: `translate(-${
-                                this.state.xPosition
-                            }%, -20%) rotateZ(${index})`,
+                            transform: `translate(${this.state.xPosition}px, ${
+                                this.state.yPosition
+                            }px) rotateZ(${this.state.zRotation}deg)`,
+                            opacity: this.state.removingCard ? 0 : 1,
+                            backgroundImage: `linear-gradient(to bottom right, rgba(255, 0, 0, ${(this
+                                .state.xPosition *
+                                -1) /
+                                100 -
+                                0.5}), rgba(255, 0, 0, ${(this.state.xPosition *
+                                -1) /
+                                100 -
+                                0.2})`,
                         }}
                     >
-                        <CardHeader
-                            //TODO change title to first & last name.
-                            //TODO update second line to city
-                            title={this.state.title}
-                            subheader={this.state.city}
+                        <CardDetails
+                            image={this.props.card.image}
+                            title={this.props.card.title}
+                            subheader={this.props.card.subHeader}
+                            chips={this.props.card.tags}
+                            discription={this.props.card.description}
                         />
-                        <CardMedia
-                            className={classes.media}
-                            image={this.state.image}
-                            title="Paella dish"
-                        />
-                        <Chip />
-                        <ControlledExpansionPanel />
-                        <SimpleBottomNavigation />
                     </Card>
                 </div>
             </Hammer>
@@ -125,10 +151,9 @@ MainStreamCard.propTypes = {
 const styles = theme => ({
     card: {
         position: 'absolute',
-        top: '50%',
-        left: '50%',
         maxWidth: 500,
         transition: 'all .5s',
+        transformOrigin: 'bottom left',
     },
 
     media: {

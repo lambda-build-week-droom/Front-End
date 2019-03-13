@@ -21,7 +21,6 @@ const SimplePopover = ({
     id,
 }) => {
     const open = Boolean(anchorEl);
-    debugger;
     return (
         <Popover
             id="simple-popper"
