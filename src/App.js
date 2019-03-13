@@ -10,6 +10,7 @@ import { decrypt, encrypt } from './components/Cryptr';
 import { authenticateFromLocalStorage } from './actions/appActions';
 import { loggedIn } from './actions/accountActions';
 import Profile from './views/Profile';
+import MiniDrawer from './components/MiniDrawer';
 
 class App extends Component {
     state = {

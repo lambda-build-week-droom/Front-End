@@ -50,7 +50,11 @@ MainStream.propTypes = {
 };
 
 const styles = {
-    root: {},
+    root: {
+        width: '40vw',
+        marginTop: '550px',
+        paddingTop: '500px',
+    },
 };
 
 function mapStateToProps(state) {

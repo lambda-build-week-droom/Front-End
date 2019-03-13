@@ -151,6 +151,7 @@ MainStreamCard.propTypes = {
 const styles = theme => ({
     card: {
         position: 'absolute',
+        top: '10%',
         maxWidth: 500,
         transition: 'all .5s',
         transformOrigin: 'bottom left',

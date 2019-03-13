@@ -9,6 +9,7 @@ import Spinner from '../components/Spinner';
 import MainStream from '../components/MainStream';
 import MyMatches from '../components/MyMatches';
 import Navigation from '../components/Navigation';
+import MiniDrawer from '../components/MiniDrawer';
 
 class Main extends Component {
     state = {
@@ -70,7 +71,7 @@ class Main extends Component {
             <div className={classes.root}>
                 <Grid container spacing={24}>
                     <Hidden xsDown>
-                        <Grid item sm={6} md={4}>
+                        <Grid item sm={6} md={4} className={classes.firstGrid}>
                             <MyMatches />
                         </Grid>
                     </Hidden>
@@ -86,6 +87,7 @@ class Main extends Component {
                     <Hidden smDown>
                         <Grid item md={4}>
                             <Navigation />
+                            {/* <MiniDrawer /> */}
                         </Grid>
                     </Hidden>
                     <SimpleModal
@@ -110,6 +112,10 @@ const styles = theme => ({
     },
     centerGrid: {
         position: 'relative',
+    },
+
+    firstGrid: {
+        marginTop: '10%',
     },
 });
 
