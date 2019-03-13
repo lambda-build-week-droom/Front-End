@@ -14,6 +14,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import SimpleList from './SimpleList';
+import AvatarComponent from './AvatarComponent';
+
 
 const drawerWidth = 240;
 
@@ -31,6 +33,7 @@ const styles = theme => ({
     },
     drawerPaper: {
         width: drawerWidth,
+
     },
     toolbar: theme.mixins.toolbar,
     content: {
@@ -40,6 +43,11 @@ const styles = theme => ({
     },
     header: {
         marginLeft: '200px',
+    },
+    avatar: {
+        display: 'block',
+        minHeight: '800px',
+        maxHeight: '800px'
     },
 });
 
@@ -69,8 +77,11 @@ function PermanentDrawerRight(props) {
                 }}
                 anchor="right"
             >
-                <div className={classes.toolbar} />
-                <Divider />
+                <AvatarComponent
+                    key={'my-avatar'}
+                    avatar={{ title: 'My Name' }}
+                    className={classes.avatar}
+                />
                 <SimpleList />
             </Drawer>
         </div>

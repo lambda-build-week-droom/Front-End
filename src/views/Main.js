@@ -112,10 +112,11 @@ const styles = theme => ({
     },
     centerGrid: {
         position: 'relative',
+        bottom: '50px'
     },
 
     firstGrid: {
-        marginTop: '10%',
+        marginTop: '70px',
     },
 });
 

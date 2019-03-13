@@ -30,12 +30,6 @@ function SimpleList(props) {
             <List component="nav">
                 <ListItem button>
                     <ListItemIcon>
-                        <PersonIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Profile" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
                         <MatchIcon />
                     </ListItemIcon>
                     <ListItemText primary="Matches" />

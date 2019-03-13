@@ -26,7 +26,6 @@ class MatchesStream extends React.Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                Matches Stream
                 {this.props.matches.map(match => {
                     return <AvatarComponent key={match.id} avatar={match} />;
                 })}
@@ -42,7 +41,7 @@ MatchesStream.propTypes = {
 const styles = {
     root: {
         overflowY: 'scroll',
-        maxHeight: '80vh',
+        maxHeight: '100vh',
     },
 };
 const mapStateToProps = state => ({
