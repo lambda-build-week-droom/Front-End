@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
+import MiniDrawer from './MiniDrawer';
 
 const Navigation = props => {
     const { classes } = props;
-    return <h1>Side Nav</h1>;
+    return <MiniDrawer />
+    // return <div></div>
 };
 
 Navigation.propTypes = {

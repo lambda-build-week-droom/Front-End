@@ -12,7 +12,7 @@ class MyMatches extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Avatar key={'my-avatar'} avatar={{ title: 'My Avatar' }} />
+                {/* <Avatar key={'my-avatar'} avatar={{ title: 'My Avatar' }} /> */}
                 <MatchesStream />
             </div>
         );

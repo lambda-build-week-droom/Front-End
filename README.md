@@ -1,3 +1,10 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a265e8a0-69ee-4ac6-800c-645010319293/deploy-status)](https://app.netlify.com/sites/getchatify/deploys)
+
+# **Chatify**
+
+> Link to [FrontEnd](https://getchatify.netlify.com/)
+
+
 # Proposal
 
 -   What problem does your app solve?
@@ -11,6 +18,16 @@ yes it elevates the unknown allowing all participants to make more productive us
 
 -   What is the mission statement?
     Be all that you can be, in the army!
+
+
+# How to install and Run?
+
+Chatify requires you to create your own environmental files and variables to run.
+
+- Fork and clone this repository
+- Run the command `npm install` to install all required dependencies.
+  - REACT_APP_SERVER_URL=[http://localhost:9000] **this will need to be changed to your server URL on deployement**
+- run `npm start`
 
 # Features
 
@@ -62,3 +79,4 @@ Research
 # Prototype Key Feature(s)
 
 -   This is the &quot;bread and butter&quot; of the app, this is what makes your app yours. Calculate how long it takes to implement these features and triple the time estimated. That way you&#39;ll have plenty of time to finish. It is preferred to drop features and spend more time working on your MVP features if needed.
+

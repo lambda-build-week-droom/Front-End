@@ -9,6 +9,7 @@ import Spinner from '../components/Spinner';
 import MainStream from '../components/MainStream';
 import MyMatches from '../components/MyMatches';
 import Navigation from '../components/Navigation';
+import MiniDrawer from '../components/MiniDrawer';
 
 class Main extends Component {
     state = {
@@ -86,6 +87,7 @@ class Main extends Component {
                     <Hidden smDown>
                         <Grid item md={4}>
                             <Navigation />
+                            {/* <MiniDrawer /> */}
                         </Grid>
                     </Hidden>
                     <SimpleModal

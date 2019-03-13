@@ -16,7 +16,7 @@ class MatchesStream extends React.Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                Matches Stream
+                {/* Matches Stream */}
                 {this.state.matches.map((match, index) => {
                     return <Avatar key={index} avatar={match} />;
                 })}
@@ -30,7 +30,9 @@ MatchesStream.propTypes = {
 };
 
 const styles = {
-    root: {},
+    root: {
+        marginTop: '82px'
+    },
 };
 
 export default withStyles(styles)(MatchesStream);

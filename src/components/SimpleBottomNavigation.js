@@ -40,9 +40,9 @@ class SimpleBottomNavigation extends React.Component {
                     label="Previous"
                     icon={<PreviousIcon />}
                 />
-                <BottomNavigationAction label="Nearby" icon={<DeleteIcon />} />
+                <BottomNavigationAction label="Pass Candidate" icon={<DeleteIcon />} />
                 <BottomNavigationAction
-                    label="Schedule Call"
+                    label="Match Candidate"
                     icon={<CallIcon />}
                 />
                 <BottomNavigationAction label="Next" icon={<NextIcon />} />
