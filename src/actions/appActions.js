@@ -14,7 +14,7 @@ let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
-    debugger;
+    this.props
     request()
         .post('/auth/login', {
             email: account.email,
@@ -32,9 +32,9 @@ export const checkAuthentication = account => async dispatch => {
                 let key = encrypt('token');
                 let tokenValue = encrypt(res.data.token);
                 localStorage.setItem(key, tokenValue);
-                let account = encrypt(JSON.stringify(data));
+                let accountToStore = encrypt(JSON.stringify(data));
                 let accountKey = encrypt('account');
-                localStorage.setItem(accountKey, account);
+                localStorage.setItem(accountKey, accountToStore);
             }
             dispatch(actionCreator(AUTHENTICATED, res.data.token));
             dispatch(actionCreator(LOGGED_IN, data));
@@ -46,7 +46,7 @@ export const checkAuthentication = account => async dispatch => {
 
 export const submitRegistration = account => async dispatch => {
     if (account.type === 'company') {
-        debugger;
+        this.props
         request()
             .post('/auth/register', {
                 email: account.email,

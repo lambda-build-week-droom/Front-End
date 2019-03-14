@@ -19,7 +19,7 @@ export const approveMatch = accountId => async dispatch => {
 };
 
 export const getStream = (token, accountType) => async dispatch => {
-    debugger;
+    this.props
     let url = '/jobs';
     if (accountType === 'company') {
         url = '/users';

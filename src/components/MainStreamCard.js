@@ -113,7 +113,7 @@ class MainStreamCard extends React.Component {
                 },
             },
         };
-        debugger;
+        this.props;
 
         return (
             <Hammer
