@@ -47,7 +47,6 @@ class UserProfile extends React.Component {
 
     onSubmit = e => {
         e.preventDefault();
-        debugger;
         let profile = {};
         let errors = [];
         for (let i = 0; i < e.target.length; i++) {
@@ -66,7 +65,7 @@ class UserProfile extends React.Component {
 
     render() {
         const { classes } = this.props;
-        debugger;
+
         return (
             <div className={classes.root}>
                 {this.props.profile.userImg ? (

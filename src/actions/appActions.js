@@ -14,7 +14,6 @@ let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
-    debugger;
     request()
         .post('/auth/login', {
             email: account.email,
@@ -46,7 +45,6 @@ export const checkAuthentication = account => async dispatch => {
 
 export const submitRegistration = account => async dispatch => {
     if (account.type === 'company') {
-        debugger;
         request()
             .post('/auth/register', {
                 email: account.email,

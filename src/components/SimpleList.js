@@ -15,7 +15,6 @@ const styles = theme => ({
 });
 
 function SimpleList(props) {
-    debugger;
     const { classes } = props;
     let url = `/profile/user/${props.account.id}`;
     if (props.account.hasOwnProperty('companyName')) {

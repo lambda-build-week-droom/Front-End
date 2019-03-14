@@ -18,7 +18,6 @@ export const updateAccountInfo = (
 ) => async dispatch => {
     dispatch(actionCreator(UPDATING_ACCOUNT_INFO));
 
-    debugger;
     let url = `/users/update`;
     if (accountType === 'company') {
         url = `/companies/update`;
@@ -29,11 +28,9 @@ export const updateAccountInfo = (
     requestWithToken(token)
         .put(url, { ...account })
         .then(res => {
-            debugger;
             dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
         })
         .catch(err => {
-            debugger;
             dispatch(actionCreator(ERROR, err));
         });
 };

@@ -15,7 +15,6 @@ class Profile extends Component {
     };
 
     componentDidMount() {
-        debugger;
         let id = this.props.match.params.id;
         let profileType = this.props.match.params.accountType;
         let profileOwner = false;
@@ -45,7 +44,6 @@ class Profile extends Component {
         requestWithToken(this.props.token)
             .get(url)
             .then(res => {
-                debugger;
                 if (accountType === 'company' && profileType === 'job') {
                     if (res.data.company_id === this.props.account.id) {
                         profileOwner = true;
@@ -58,13 +56,11 @@ class Profile extends Component {
                 });
             })
             .catch(err => {
-                debugger;
                 console.log(err.message);
             });
     }
 
     render() {
-        debugger;
         const { classes } = this.props;
         return (
             <div className={classes.root}>
