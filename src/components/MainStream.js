@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import MainStreamCard from './MainStreamCard';
 import { getStream } from '../actions/matchActions';
+import { updateAccountInfo } from '../actions/accountActions';
 
 class MainStream extends Component {
     componentDidMount() {
@@ -21,27 +22,32 @@ class MainStream extends Component {
         }
     }
 
+    getCards = () => {
+        let cards = [];
+
+        if (this.props.stream.length === 0) {
+            return cards;
+        }
+
+        for (let i = 0; i < 5; i++) {
+            cards.push(
+                <MainStreamCard
+                    key={this.props.stream[i].id}
+                    account={this.props.stream[i]}
+                    index={i}
+                />
+            );
+        }
+
+        return cards;
+    };
+
     render() {
         const { classes } = this.props;
-
-        return (
-            <div className={classes.root}>
-                {this.props.stream.map((card, index) => {
-                    if (card === undefined) {
-                    }
-                    if (index > 5) {
-                        return;
-                    }
-                    return (
-                        <MainStreamCard
-                            key={card.id}
-                            card={card}
-                            index={index}
-                        />
-                    );
-                })}
-            </div>
-        );
+        if (this.props.error) {
+            return <h2>{this.props.error.message}</h2>;
+        }
+        return <div className={classes.root}>{this.getCards()}</div>;
     }
 }
 
@@ -62,10 +68,11 @@ function mapStateToProps(state) {
         token: state.appReducer.token,
         account: state.accountReducer.account,
         stream: state.matchReducer.stream,
+        error: state.matchReducer.error,
     };
 }
 
 export default connect(
     mapStateToProps,
-    { getStream }
+    { getStream, updateAccountInfo }
 )(withStyles(styles)(MainStream));

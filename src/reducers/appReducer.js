@@ -2,9 +2,10 @@ import {
     CHECKING_AUTHENTICATION,
     AUTHENTICATED,
     ERROR,
-    REGISTERED,
     AUTHENTICATED_FROM_LOCAL_STORAGE,
 } from '../actions/appActions';
+
+import { LOGGED_OUT } from '../actions/accountActions';
 
 const initialState = {
     authenticated: false,
@@ -22,6 +23,12 @@ export const appReducer = (state = initialState, action) => {
                 token: action.payload,
                 authenticated: true,
                 error: null,
+            };
+        case LOGGED_OUT:
+            return {
+                ...state,
+                token: null,
+                authenticated: false,
             };
         case CHECKING_AUTHENTICATION:
             return { ...state, fetching: true };

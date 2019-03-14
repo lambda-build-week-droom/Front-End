@@ -38,6 +38,7 @@ export const checkAuthentication = account => async dispatch => {
 };
 
 export const submitRegistration = account => async dispatch => {
+    debugger;
     request()
         .post('/auth/register', {
             email: account.email,

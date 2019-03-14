@@ -8,7 +8,6 @@ import AccountForm from '../components/AccountForm';
 import Spinner from '../components/Spinner';
 import MainStream from '../components/MainStream';
 import MyMatches from '../components/MyMatches';
-import Navigation from '../components/Navigation';
 import MiniDrawer from '../components/MiniDrawer';
 
 class Main extends Component {
@@ -84,12 +83,10 @@ class Main extends Component {
                     >
                         <MainStream />
                     </Grid>
-                    <Hidden smDown>
-                        <Grid item md={4}>
-                            <Navigation />
-                            {/* <MiniDrawer /> */}
-                        </Grid>
-                    </Hidden>
+                    <Grid item md={4}>
+                        <MiniDrawer />
+                    </Grid>
+
                     <SimpleModal
                         open={this.state.needsInfo}
                         onClose={this.closeModal}
@@ -108,14 +105,20 @@ class Main extends Component {
 
 const styles = theme => ({
     root: {
-        // TODO ADD CSS in JS using CamelCase
+        display: 'flex',
+        maxWidth: '1000vw',
+        justifyContent: 'space-between',
+        height: '100vh',
     },
-    centerGrid: {
-        position: 'relative',
+    firstGrid: {
+        marginTop: '5%',
+        display: 'flex',
+        justifyContent: 'stretch',
     },
 
-    firstGrid: {
-        marginTop: '10%',
+    centerGrid: {
+        display: 'flex',
+        maxHeight: '70vh',
     },
 });
 

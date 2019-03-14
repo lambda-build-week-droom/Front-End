@@ -45,6 +45,9 @@ CardDetails.propTypes = {
 
 const styles = {
     root: {},
+    media: {
+        height: '200px',
+    },
 };
 
 export default withStyles(styles)(CardDetails);

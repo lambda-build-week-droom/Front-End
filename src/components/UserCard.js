@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import MiniDrawer from './MiniDrawer';
 
-const Navigation = props => {
+const UserCard = props => {
     const { classes } = props;
-    return <MiniDrawer />;
-    // return <div></div>
+
+    return <div className={classes.root}>User Card</div>;
 };
 
-Navigation.propTypes = {
+UserCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
@@ -17,4 +16,4 @@ const styles = {
     root: {},
 };
 
-export default withStyles(styles)(Navigation);
+export default withStyles(styles)(UserCard);

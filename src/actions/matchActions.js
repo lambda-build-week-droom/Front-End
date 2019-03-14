@@ -27,22 +27,19 @@ export const getStream = (token, accountType) => async dispatch => {
     requestWithToken(token)
         .get(url)
         .then(res => {
-            if (accountType === 'user') {
-                res.data = res.data.map(account => {
-                    account.imageAvatar = faker.fake('{{image.avatar}}');
-                    account.image = account.jobImg;
-                    account.city = faker.fake('{{address.city}}');
-                    account.tags = getChips();
-                    account.description = faker.fake('{{lorem.paragraph}}');
-                    account.title = account.jobTitle;
-                    account.subHeader = account.jobRequirements;
-                    return account;
-                });
+            let accountType = 'job';
+            if (accountType === 'company') {
+                accountType = 'user';
             }
-
+            res.data = res.data.map(account => {
+                account.accountType = accountType;
+                return account;
+            });
             dispatch(actionCreator(MATCHES_FETCHED, res.data));
         })
-        .catch(err => dispatch(actionCreator(MATCH_ERROR, err)));
+        .catch(err => {
+            dispatch(actionCreator(MATCH_ERROR, err));
+        });
 };
 
 export const disApproveMatch = accountId => async dispatch => {
@@ -63,17 +60,15 @@ export const getCurrentMatches = (token, accountType) => async dispatch => {
     requestWithToken(token)
         .get(url)
         .then(res => {
+            let accountType = 'job';
+            if (accountType === 'company') {
+                accountType = 'user';
+            }
+            res.data = res.data.map(account => {
+                account.accountType = accountType;
+                return account;
+            });
             dispatch(actionCreator(FETCHED_CURRENT_MATCHES, res.data));
         })
         .catch(err => actionCreator(CURRENT_MATCHES_ERROR, err));
 };
-
-function getChips() {
-    let number = Math.floor(Math.random() * 10);
-    let chips = [];
-    for (let i = 0; i < number; i++) {
-        chips.push(faker.fake('{{company.bsBuzz}}'));
-    }
-
-    return chips;
-}

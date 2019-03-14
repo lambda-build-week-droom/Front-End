@@ -5,6 +5,7 @@ import AvatarComponent from './AvatarComponent';
 import { connect } from 'react-redux';
 import { getCurrentMatches } from '../actions/matchActions';
 import { requestWithToken } from '../actions/axios';
+import JobComponent from './JobComponent';
 
 class MatchesStream extends React.Component {
     state = {};
@@ -26,8 +27,11 @@ class MatchesStream extends React.Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                Matches Stream
                 {this.props.matches.map(match => {
+                    if (match.hasOwnProperty('jobTitle')) {
+                        return <JobComponent key={match.id} job={match} />;
+                    }
+
                     return <AvatarComponent key={match.id} avatar={match} />;
                 })}
             </div>
@@ -42,7 +46,7 @@ MatchesStream.propTypes = {
 const styles = {
     root: {
         overflowY: 'scroll',
-        maxHeight: '80vh',
+        maxHeight: '65vh',
     },
 };
 const mapStateToProps = state => ({

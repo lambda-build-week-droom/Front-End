@@ -32,7 +32,11 @@ class AvatarComponent extends React.Component {
     };
 
     getPopOverContent = id => {
-        return <Link to={`/profile/${id}`}>View Profile</Link>;
+        return (
+            <Link replace={true} to={`/profile/${id}`}>
+                View Profile
+            </Link>
+        );
     };
 
     render() {

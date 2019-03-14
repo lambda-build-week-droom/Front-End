@@ -56,6 +56,7 @@ class ControlledExpansionPanels extends React.Component {
                 <ExpansionPanel
                     expanded={this.state.expanded === `panel${i}`}
                     onChange={this.handleChange(`panel${i}`)}
+                    key={`expansionPanel${i}`}
                 >
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>

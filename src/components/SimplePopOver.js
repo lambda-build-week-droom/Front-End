@@ -43,7 +43,7 @@ const SimplePopover = ({
 
 SimplePopover.propTypes = {
     classes: PropTypes.object.isRequired,
-    anchorEl: PropTypes.element.isRequired,
+    anchorEl: PropTypes.element,
     handleClose: PropTypes.func.isRequired,
     getContent: PropTypes.func.isRequired,
     anchorOrginVert: PropTypes.string,

@@ -3,6 +3,7 @@ import {
     ACCOUNT_INFORMATION_UPDATED,
     ERROR,
     LOGGED_IN,
+    LOGGED_OUT,
 } from '../actions/accountActions';
 
 const initialState = {
@@ -26,6 +27,12 @@ export const accountReducer = (state = initialState, action) => {
             return {
                 ...state,
                 account: action.payload,
+                error: null,
+            };
+        case LOGGED_OUT:
+            return {
+                ...state,
+                account: {},
                 error: null,
             };
         case ERROR:

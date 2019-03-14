@@ -10,6 +10,8 @@ import ControlledExpansionPanel from './ControlledExpansionPanel';
 import SimpleBottomNavigation from './SimpleBottomNavigation';
 import Chip from './Chip';
 import CardDetails from './CardDetails';
+import JobCard from './JobCard';
+import UserCard from './UserCard';
 
 class MainStreamCard extends React.Component {
     state = {
@@ -18,10 +20,15 @@ class MainStreamCard extends React.Component {
         yPosition: 50,
         zRotation: this.props.index,
         removingCard: false,
+        chips: [],
     };
 
+    componentDidMount() {
+        this.setState({ chips: this.getChips() });
+    }
+
     onDoubleTap = () => {
-        this.props.approveMatch(this.props.card.id);
+        this.props.approveMatch(this.props.account.id);
     };
 
     onPanEnd = props => {
@@ -47,7 +54,7 @@ class MainStreamCard extends React.Component {
             removingCard: true,
         });
         setTimeout(() => {
-            this.props.disApproveMatch(this.props.card.id);
+            this.props.disApproveMatch(this.props.account.id);
         }, 500);
     };
 
@@ -77,9 +84,6 @@ class MainStreamCard extends React.Component {
             this.onPanEnd();
             return;
         }
-        console.log('x:', this.state.xPosition);
-        console.log('y:', this.state.yPosition);
-        console.log('z:', this.state.zRotation);
         this.setState(state => {
             return {
                 xPosition: state.xPosition + deltaX,
@@ -87,6 +91,15 @@ class MainStreamCard extends React.Component {
                 zRotation: state.zRotation + deltaX / 10,
             };
         });
+    };
+
+    getChips = () => {
+        let chips = [];
+        let number = Math.floor(Math.random() * 5) + 5;
+        for (let i = 0; i < number; i++) {
+            chips.push(faker.fake('{{company.bsAdjective}}'));
+        }
+        return chips;
     };
 
     render() {
@@ -129,13 +142,23 @@ class MainStreamCard extends React.Component {
                                 0.2})`,
                         }}
                     >
-                        <CardDetails
-                            image={this.props.card.image}
-                            title={this.props.card.title}
-                            subheader={this.props.card.subHeader}
-                            chips={this.props.card.tags}
-                            discription={this.props.card.description}
-                        />
+                        {this.props.account ? (
+                            this.props.account.hasOwnProperty('jobTitle') ? (
+                                <CardDetails
+                                    image={this.props.account.jobImg}
+                                    title={this.props.account.jobTitle}
+                                    subheader={this.props.account.jobPosition}
+                                    chips={this.state.chips}
+                                    discription={
+                                        this.props.account.jobDescription
+                                    }
+                                />
+                            ) : (
+                                <UserCard account={this.props.account} />
+                            )
+                        ) : (
+                            ''
+                        )}
                     </Card>
                 </div>
             </Hammer>
@@ -145,26 +168,22 @@ class MainStreamCard extends React.Component {
 
 MainStreamCard.propTypes = {
     classes: PropTypes.object.isRequired,
-    card: PropTypes.object.isRequired,
+    account: PropTypes.object.isRequired,
 };
 
 const styles = theme => ({
     card: {
         position: 'absolute',
         top: '10%',
-        maxWidth: 500,
+        maxWidth: '400px',
+        width: '90%',
         transition: 'all .5s',
         transformOrigin: 'bottom left',
-    },
-
-    media: {
-        height: 300,
     },
     actions: {
         display: 'flex',
     },
     expand: {
-        transform: 'rotate(0deg)',
         marginLeft: 'auto',
         transition: theme.transitions.create('transform', {
             duration: theme.transitions.duration.shortest,

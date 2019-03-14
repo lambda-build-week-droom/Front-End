@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import faker from 'faker';
+import uuid4 from 'uuid4';
 
 const styles = theme => ({
     root: {
@@ -19,9 +19,9 @@ function Chips(props) {
     const { classes } = props;
     return (
         <div className={classes.root}>
-            {props.chips.map(chip => (
-                <Chip label={chip} className={classes.chip} />
-            ))}
+            {props.chips.map(chip => {
+                return <Chip key={uuid4()} label={chip} color={'primary'} />;
+            })}
         </div>
     );
 }

@@ -4,9 +4,19 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import AvatarComponent from './AvatarComponent';
 import MatchesStream from './MatchesStream';
+import SimpleTabs from './SimpleTabs';
+import Messages from './Messages';
 
 class MyMatches extends Component {
     state = {};
+
+    getContentMatches = () => {
+        return <MatchesStream />;
+    };
+
+    getContentMessages = () => {
+        return <Messages />;
+    };
 
     render() {
         const { classes } = this.props;
@@ -16,7 +26,13 @@ class MyMatches extends Component {
                     key={'my-avatar'}
                     avatar={{ title: 'My Avatar' }}
                 />
-                <MatchesStream />
+                <SimpleTabs
+                    labels={['Matches', 'Messages']}
+                    getContentFunctions={[
+                        this.getContentMatches,
+                        this.getContentMessages,
+                    ]}
+                />
             </div>
         );
     }
