@@ -21,15 +21,16 @@ import { Link } from 'react-router-dom';
 const drawerWidth = 240;
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-    },
+    // root: {
+    //     display: 'flex',
+    // },
     appBar: {
-        marginRight: drawerWidth,
-        width: '100%',
-        [theme.breakpoints.down('lg')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-        },
+        // marginRight: drawerWidth,
+        // width: '100%',
+        // [theme.breakpoints.down('lg')]: {
+        //     width: `calc(100% - ${drawerWidth}px)`,
+        // },
+        backgroundColor: '#2e4053',
     },
     drawer: {
         width: drawerWidth,
@@ -38,24 +39,28 @@ const styles = theme => ({
     drawerPaper: {
         width: drawerWidth,
     },
-    toolbar: theme.mixins.toolbar,
+    // toolbar: theme.mixins.toolbar,
+    toolBar: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing.unit * 3,
     },
-    header: {
-        marginLeft: '200px',
-    },
+    // header: {
+    //     marginLeft: '200px',
+    // },
     droomLink: {
         color: 'white',
         textDecoration: 'none',
+        fontFamily: 'Yellowtail, cursive',
     },
-
-    menuButton: {
-        display: 'flex',
-        alignSelf: 'flex-end',
-    },
+    // menuButton: {
+    //     display: 'flex',
+    //     alignSelf: 'flex-end',
+    // },
 });
 
 class PermanentDrawerRight extends React.Component {
@@ -75,7 +80,7 @@ class PermanentDrawerRight extends React.Component {
                 <CssBaseline />
 
                 <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar>
+                    <Toolbar className={classes.toolBar}>
                         <Typography
                             className={classes.header}
                             variant="h4"
@@ -83,7 +88,7 @@ class PermanentDrawerRight extends React.Component {
                             noWrap
                         >
                             <Link to={'/main'} className={classes.droomLink}>
-                                DROOM
+                                Droom
                             </Link>
                         </Typography>
                         <Hidden mdUp>
@@ -93,7 +98,7 @@ class PermanentDrawerRight extends React.Component {
                                 onClick={this.handleDrawerToggle}
                                 className={classes.menuButton}
                             >
-                                <MenuIcon />
+                                <MenuIcon fontSize="large" />
                             </IconButton>
                         </Hidden>
                     </Toolbar>
