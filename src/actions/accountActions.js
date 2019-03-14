@@ -11,51 +11,29 @@ export const LOGGED_OUT = 'LOGGED_OUT';
 
 let registered = [];
 
-export const updateAccountInfo = (account, token) => async dispatch => {
+export const updateAccountInfo = (
+    account,
+    token,
+    accountType
+) => async dispatch => {
     dispatch(actionCreator(UPDATING_ACCOUNT_INFO));
-    let url = `/users/update/${account.id}`;
-    let data = {
-        id: account.id,
-        firstName: account.firstName,
-        lastName: account.lastName,
-        occupation: account.occupation,
-        experience: account.experience,
-        interests: account.interests,
-    };
 
-    if (account.hasOwnProperty('jobTitle')) {
+    debugger;
+    let url = `/users/update`;
+    if (accountType === 'company') {
+        url = `/companies/update`;
+    } else if (accountType === 'job') {
         url = `/jobs/update/${account.id}`;
-
-        data = {
-            id: 1,
-            jobTitle: account.jobTitle,
-            jobPosition: account.jobPosition,
-            jobDescription: account.jobDescription,
-            jobRequirements: account.jobRequirements,
-            jobSalary: account.jobSalary,
-            jobTags: account.jobTags,
-            jobOpenDate: account.jobOpenDate,
-            jobCloseDate: account.jobCloseDate,
-            company_id: account.company_id,
-            jobImage: account.image,
-        };
-    } else if (account.hasOwnProperty('companyName')) {
-        url = `/companies/update/${account.id}`;
-
-        data = {
-            id: account.id,
-            companyName: account.companyName,
-            email: account.email,
-            bio: account.bio,
-            address: account.address,
-        };
     }
+
     requestWithToken(token)
-        .put(url, { ...data })
+        .put(url, { ...account })
         .then(res => {
-            dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, res.data));
+            debugger;
+            dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
         })
         .catch(err => {
+            debugger;
             dispatch(actionCreator(ERROR, err));
         });
 };

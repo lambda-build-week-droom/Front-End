@@ -6,6 +6,8 @@ import Chip from './Chip';
 import DroomButton from './DroomButton';
 import SimpleModal from './SimpleModal';
 import InputText from './InputText';
+import { updateAccountInfo } from '../actions/accountActions';
+import { connect } from 'react-redux';
 
 class UserProfile extends React.Component {
     state = {
@@ -38,11 +40,14 @@ class UserProfile extends React.Component {
                     label={'Interests'}
                     value={props.profile.interests}
                 />
+                <DroomButton type={'submit'} text={'Submit'} />
             </form>
         );
     };
 
     onSubmit = e => {
+        e.preventDefault();
+        debugger;
         let profile = {};
         let errors = [];
         for (let i = 0; i < e.target.length; i++) {
@@ -54,6 +59,9 @@ class UserProfile extends React.Component {
                 }
             }
         }
+
+        this.props.updateAccountInfo(profile, this.props.token, 'user');
+        this.setState({ modal: false });
     };
 
     render() {
@@ -79,7 +87,7 @@ class UserProfile extends React.Component {
                 {this.props.myProfile ? (
                     <DroomButton
                         onClick={this.handleEditClick}
-                        label={'Edit Profile'}
+                        text={'Edit Profile'}
                     />
                 ) : (
                     ''
@@ -92,7 +100,7 @@ class UserProfile extends React.Component {
                     onSubmit={this.onSubmit}
                     title={'Account Information'}
                     subtitle={'Please fill out the form below.'}
-                    profil={this.props.profile}
+                    profile={this.props.profile}
                 />
             </div>
         );
@@ -110,4 +118,13 @@ const styles = {
     },
 };
 
-export default withStyles(styles)(UserProfile);
+const mapStateToProps = state => {
+    return {
+        token: state.appReducer.token,
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    { updateAccountInfo }
+)(withStyles(styles)(UserProfile));
