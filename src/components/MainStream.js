@@ -23,13 +23,18 @@ class MainStream extends Component {
     }
 
     getCards = () => {
+        debugger;
         let cards = [];
 
         if (this.props.stream.length === 0) {
             return cards;
         }
+        let length = 5;
+        if (this.props.stream.length < 5) {
+            length = this.props.stream.length;
+        }
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < length; i++) {
             cards.push(
                 <MainStreamCard
                     key={this.props.stream[i].id}

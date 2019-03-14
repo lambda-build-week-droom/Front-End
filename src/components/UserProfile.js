@@ -8,6 +8,7 @@ import SimpleModal from './SimpleModal';
 import InputText from './InputText';
 import { updateAccountInfo } from '../actions/accountActions';
 import { connect } from 'react-redux';
+import faker from 'faker';
 
 class UserProfile extends React.Component {
     state = {
@@ -45,6 +46,15 @@ class UserProfile extends React.Component {
         );
     };
 
+    getChips = () => {
+        let chips = [];
+        let number = Math.floor(Math.random() * 5) + 5;
+        for (let i = 0; i < number; i++) {
+            chips.push(faker.fake('{{company.bsAdjective}}'));
+        }
+        return chips;
+    };
+
     onSubmit = e => {
         e.preventDefault();
         debugger;
@@ -77,7 +87,7 @@ class UserProfile extends React.Component {
 
                 <h3>{this.props.profile.occupation}</h3>
                 {this.props.profile.interests ? (
-                    <Chip chips={this.props.profile.interests} />
+                    <Chip chips={this.getChips()} />
                 ) : (
                     ''
                 )}
@@ -115,6 +125,7 @@ const styles = {
     root: {
         height: '100%',
         width: '100%',
+        marginTop: '3rem',
     },
 };
 

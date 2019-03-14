@@ -27,7 +27,13 @@ export const updateAccountInfo = (
     }
 
     requestWithToken(token)
-        .put(url, { ...account })
+        .put(url, {
+            firstName: account.firstName,
+            lastName: account.lastName,
+            occupation: account.occupation,
+            experience: account.experience,
+            interests: account.interests,
+        })
         .then(res => {
             debugger;
             dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
