@@ -15,7 +15,7 @@ class LoginForm extends Component {
         e.preventDefault();
         let account = {};
         let errors = [];
-        this.props;
+
         for (let i = 0; i < e.target.length; i++) {
             if (!!e.target[i].name) {
                 if (e.target[i].name === 'rememberMe') {

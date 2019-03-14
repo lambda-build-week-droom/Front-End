@@ -19,14 +19,12 @@ class CompanyProfile extends Component {
     };
 
     editProfile = () => {
-        this.props;
         this.setState(state => {
             return { modal: !state.modal };
         });
     };
 
     getModalContent = props => {
-        this.props;
         return (
             <form onSubmit={props.onSubmit}>
                 <InputText
@@ -68,7 +66,7 @@ class CompanyProfile extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        this.props;
+
         let profile = {};
         let errors = [];
         for (let i = 0; i < e.target.length; i++) {
@@ -86,7 +84,6 @@ class CompanyProfile extends Component {
     };
 
     render() {
-        this.props;
         const { classes } = this.props;
         return (
             <div className={classes.root}>

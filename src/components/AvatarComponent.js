@@ -22,12 +22,10 @@ class AvatarComponent extends React.Component {
     };
 
     handlePopOverClose = () => {
-        this.props
         this.setState({ popOverElement: null });
     };
 
     handleVertIconClick = event => {
-        this.props
         this.setState({
             popOverElement: event.currentTarget,
         });

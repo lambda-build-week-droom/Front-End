@@ -8,7 +8,6 @@ import { updateAccountInfo } from '../actions/accountActions';
 
 class MainStream extends Component {
     componentDidMount() {
-        this.props;
         let accountType = 'user';
 
         if (this.props.account.hasOwnProperty('companyName')) {
@@ -24,7 +23,6 @@ class MainStream extends Component {
     }
 
     getCards = () => {
-        this.props;
         let cards = [];
 
         if (this.props.stream.length === 0) {

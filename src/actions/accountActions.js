@@ -18,7 +18,6 @@ export const updateAccountInfo = (
 ) => async dispatch => {
     dispatch(actionCreator(UPDATING_ACCOUNT_INFO));
 
-    this.props;
     let url = `/users/update`;
     if (accountType === 'company') {
         url = `/companies/update`;
@@ -36,11 +35,9 @@ export const updateAccountInfo = (
                 interests: account.interests,
             })
             .then(res => {
-                this.props;
                 dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
             })
             .catch(err => {
-                this.props;
                 dispatch(actionCreator(ERROR, err));
             });
     } else if (accountType === 'company') {
@@ -52,11 +49,9 @@ export const updateAccountInfo = (
                 address: account.address,
             })
             .then(res => {
-                this.props;
                 dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
             })
             .catch(err => {
-                this.props;
                 dispatch(actionCreator(ERROR, err));
             });
     }

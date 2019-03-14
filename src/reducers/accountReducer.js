@@ -13,7 +13,6 @@ const initialState = {
 };
 
 export const accountReducer = (state = initialState, action) => {
-    this.props;
     switch (action.type) {
         case UPDATING_ACCOUNT_INFO:
             return { ...state, updatingAccountInfo: true };
