@@ -19,11 +19,11 @@ class RegistrationForm extends Component {
         e.preventDefault();
         let account = {};
         let errors = [];
-
+        debugger;
         for (let i = 0; i < e.target.length; i++) {
             if (!!e.target[i].name) {
                 if (e.target[i].name === 'companySwitch') {
-                    account['type'] = e.target[i].value ? 'company' : 'user';
+                    account['type'] = e.target[i].checked ? 'company' : 'user';
                     continue;
                 }
 
@@ -64,6 +64,13 @@ class RegistrationForm extends Component {
                     }
                     label="Company"
                 />
+                {this.state.registrationCompany && (
+                    <InputText
+                        label={'Company Name'}
+                        error={this.props.errors}
+                        className={classes.textField}
+                    />
+                )}
                 <InputText
                     label={'Email'}
                     type={'email'}

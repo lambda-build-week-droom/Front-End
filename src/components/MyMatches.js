@@ -2,18 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import Avatar from './AvatarComponent';
+import AvatarComponent from './AvatarComponent';
 import MatchesStream from './MatchesStream';
+import SimpleTabs from './SimpleTabs';
+import Messages from './Messages';
 
 class MyMatches extends Component {
     state = {};
+
+    getContentMatches = () => {
+        return <MatchesStream />;
+    };
+
+    getContentMessages = () => {
+        return <Messages />;
+    };
 
     render() {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Avatar avatar={{ title: 'My Avatar' }} />
-                <MatchesStream />
+                <AvatarComponent
+                    key={'my-avatar'}
+                    avatar={{ title: 'My Avatar' }}
+                />
+                <SimpleTabs
+                    labels={['Matches', 'Messages']}
+                    getContentFunctions={[
+                        this.getContentMatches,
+                        this.getContentMessages,
+                    ]}
+                />
             </div>
         );
     }

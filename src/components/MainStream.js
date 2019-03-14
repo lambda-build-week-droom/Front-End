@@ -3,39 +3,51 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import MainStreamCard from './MainStreamCard';
-import { requestWithToken } from '../actions/axios';
-
-import faker from 'faker';
+import { getStream } from '../actions/matchActions';
+import { updateAccountInfo } from '../actions/accountActions';
 
 class MainStream extends Component {
-    state = {
-        stream: [],
-    };
-
     componentDidMount() {
-        debugger;
-        let url = '/companies';
-        if (this.props.account.hasOwnProperty('firstName')) {
-            url = '/users';
+        let accountType = 'user';
+
+        if (this.props.account.hasOwnProperty('companyName')) {
+            accountType = 'company';
         }
-        requestWithToken(this.props.token)
-            .get(url)
-            .then(res => this.setState({ stream: res.data }))
-            .catch(error => console.log(error));
+        this.props.getStream(this.props.token, accountType);
     }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        if (nextProps.stream !== this.props.stream) {
+            return true;
+        }
+    }
+
+    getCards = () => {
+        let cards = [];
+
+        if (this.props.stream.length === 0) {
+            return cards;
+        }
+
+        for (let i = 0; i < 5; i++) {
+            cards.push(
+                <MainStreamCard
+                    key={this.props.stream[i].id}
+                    account={this.props.stream[i]}
+                    index={i}
+                />
+            );
+        }
+
+        return cards;
+    };
 
     render() {
         const { classes } = this.props;
-        return (
-            <div className={classes.root}>
-                {this.state.stream.map((card, index) => {
-                    if (index > 5) {
-                        return;
-                    }
-                    return <MainStreamCard card={card} index={index} />;
-                })}
-            </div>
-        );
+        if (this.props.error) {
+            return <h2>{this.props.error.message}</h2>;
+        }
+        return <div className={classes.root}>{this.getCards()}</div>;
     }
 }
 
@@ -44,17 +56,23 @@ MainStream.propTypes = {
 };
 
 const styles = {
-    root: {},
+    root: {
+        width: '40vw',
+        marginTop: '550px',
+        paddingTop: '500px',
+    },
 };
 
 function mapStateToProps(state) {
     return {
         token: state.appReducer.token,
         account: state.accountReducer.account,
+        stream: state.matchReducer.stream,
+        error: state.matchReducer.error,
     };
 }
 
 export default connect(
     mapStateToProps,
-    {}
+    { getStream, updateAccountInfo }
 )(withStyles(styles)(MainStream));

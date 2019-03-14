@@ -10,6 +10,12 @@ import { decrypt, encrypt } from './components/Cryptr';
 import { authenticateFromLocalStorage } from './actions/appActions';
 import { loggedIn } from './actions/accountActions';
 import Profile from './views/Profile';
+import MiniDrawer from './components/MiniDrawer';
+import unsplash from './actions/unsplash';
+import Matches from './views/Matches';
+import Messages from './views/Messages';
+import SignOut from './views/SignOut';
+import MainStream from './components/MainStream';
 
 class App extends Component {
     state = {
@@ -59,14 +65,39 @@ class App extends Component {
             <div className="App">
                 <Route exact path={'/login/:type'} component={Login} />
                 <PrivateRoute
+                    exact
                     path={'/'}
+                    component={Login}
+                    authenticated={this.props.authenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path={'/main'}
                     component={Main}
                     authenticated={this.props.authenticated}
                 />
                 <PrivateRoute
                     exact
-                    path={'/profile/:id'}
+                    path={'/profile/:accountType/:id'}
                     component={Profile}
+                    authenticated={this.props.authenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path={'/matches'}
+                    component={Matches}
+                    authenticated={this.props.authenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path={'/messages'}
+                    component={Messages}
+                    authenticated={this.props.authenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path={'/signOut'}
+                    component={SignOut}
                     authenticated={this.props.authenticated}
                 />
             </div>

@@ -10,7 +10,7 @@ const PrivateRoute = ({ component: Component, authenticated, ...rest }) => {
                 return authenticated ? (
                     <Component {...props} />
                 ) : (
-                    <Redirect to="/login/form" />
+                    <Redirect to={{ pathname: '/login/form' }} />
                 );
             }}
         />

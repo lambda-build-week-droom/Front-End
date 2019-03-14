@@ -14,36 +14,30 @@ let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
-    //dispatch(actionCreator(AUTHENTICATED, 'afhdha;fheiaf;kdhaufe'));
-    // dispatch(
-    //     actionCreator(LOGGED_IN, {
-    //         id: 1,
-    //         firstName: 'Orlando',
-    //         lastName: 'Nitzsche',
-    //         occupation: 'Regional Functionality Strategist',
-    //         experience: 'experience',
-    //         interests: 'interests',
-    //     })
-    // );
-
     debugger;
-
     request()
         .post('/auth/login', {
             email: account.email,
             password: account.password,
         })
         .then(res => {
+            let data = {};
+            if (res.data.hasOwnProperty('companyInfo')) {
+                data = res.data.companyInfo;
+            } else {
+                data = res.data.userInfo;
+            }
+
             if (account.rememberMe) {
                 let key = encrypt('token');
                 let tokenValue = encrypt(res.data.token);
                 localStorage.setItem(key, tokenValue);
-                let account = encrypt(JSON.stringify(res.data.userInfo));
+                let account = encrypt(JSON.stringify(data));
                 let accountKey = encrypt('account');
                 localStorage.setItem(accountKey, account);
             }
             dispatch(actionCreator(AUTHENTICATED, res.data.token));
-            dispatch(actionCreator(LOGGED_IN, res.data.userInfo));
+            dispatch(actionCreator(LOGGED_IN, data));
         })
         .catch(err => {
             dispatch(actionCreator(ERROR, err));
@@ -51,7 +45,23 @@ export const checkAuthentication = account => async dispatch => {
 };
 
 export const submitRegistration = account => async dispatch => {
-    debugger;
+    if (account.type === 'company') {
+        debugger;
+        request()
+            .post('/auth/register', {
+                email: account.email,
+                password: account.password,
+                type: account.type,
+                companyName: account.companyName,
+            })
+            .then(res => {
+                dispatch(actionCreator(REGISTERED));
+            })
+            .catch(err => {
+                dispatch(actionCreator(ERROR, err));
+            });
+        return;
+    }
     request()
         .post('/auth/register', {
             email: account.email,

@@ -58,7 +58,7 @@ const SimpleModal = props => {
 
 SimpleModal.propTypes = {
     classes: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
+    onClose: PropTypes.func,
     getModalContent: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     title: PropTypes.string,

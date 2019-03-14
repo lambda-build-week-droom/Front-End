@@ -8,7 +8,7 @@ import AccountForm from '../components/AccountForm';
 import Spinner from '../components/Spinner';
 import MainStream from '../components/MainStream';
 import MyMatches from '../components/MyMatches';
-import Navigation from '../components/Navigation';
+import MiniDrawer from '../components/MiniDrawer';
 
 class Main extends Component {
     state = {
@@ -19,7 +19,6 @@ class Main extends Component {
     };
 
     componentDidMount() {
-        debugger;
         if (this.compareObjects(this.props.account, {})) {
             this.setState({ needsInfo: true, account: this.props.account });
         }
@@ -71,7 +70,7 @@ class Main extends Component {
             <div className={classes.root}>
                 <Grid container spacing={24}>
                     <Hidden xsDown>
-                        <Grid item sm={6} md={4}>
+                        <Grid item sm={6} md={4} className={classes.firstGrid}>
                             <MyMatches />
                         </Grid>
                     </Hidden>
@@ -82,14 +81,12 @@ class Main extends Component {
                         md={4}
                         className={classes.centerGrid}
                     >
-                        <h1>Main</h1>
                         <MainStream />
                     </Grid>
-                    <Hidden smDown>
-                        <Grid item md={4}>
-                            <Navigation />
-                        </Grid>
-                    </Hidden>
+                    <Grid item md={4}>
+                        <MiniDrawer />
+                    </Grid>
+
                     <SimpleModal
                         open={this.state.needsInfo}
                         onClose={this.closeModal}
@@ -108,7 +105,20 @@ class Main extends Component {
 
 const styles = theme => ({
     root: {
-        // TODO ADD CSS in JS using CamelCase
+        display: 'flex',
+        maxWidth: '1000vw',
+        justifyContent: 'space-between',
+        height: '100vh',
+    },
+    firstGrid: {
+        marginTop: '5%',
+        display: 'flex',
+        justifyContent: 'stretch',
+    },
+
+    centerGrid: {
+        display: 'flex',
+        maxHeight: '70vh',
     },
 });
 
