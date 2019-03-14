@@ -1,7 +1,7 @@
-import { request, requestWithToken } from './axios';
+import { request } from './axios';
 import actionCreator from './actionCreator';
 import { LOGGED_IN } from './accountActions';
-import { decrypt, encrypt } from '../components/Cryptr';
+import { encrypt } from '../components/Cryptr';
 
 export const CHECKING_AUTHENTICATION = 'CHECKING_AUTHENTICATION';
 export const AUTHENTICATED = 'AUTHENTICATED';
@@ -9,8 +9,6 @@ export const ERROR = 'ERROR';
 export const REGISTERED = 'REGISTERED';
 export const AUTHENTICATED_FROM_LOCAL_STORAGE =
     'AUTHENTICATED_FROM_LOCAL_STORAGE';
-
-let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));

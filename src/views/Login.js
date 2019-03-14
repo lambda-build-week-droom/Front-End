@@ -32,7 +32,6 @@ class Login extends Component {
         if (this.props.authenticated) {
             return <Redirect to={'/main'} />;
         }
-        const { classes } = this.props;
         return (
             <SimpleModal
                 open={true}

@@ -24,7 +24,7 @@ class MyMatches extends Component {
             <div className={classes.root}>
                 <AvatarComponent
                     key={'my-avatar'}
-                    avatar={{ title: 'My Avatar' }}
+                    avatar={this.props.account}
                 />
                 <SimpleTabs
                     labels={['Matches', 'Messages']}
@@ -49,7 +49,9 @@ const styles = {
 MyMatches.propTypes = {};
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        account: state.accountReducer.account,
+    };
 }
 
 export default connect(

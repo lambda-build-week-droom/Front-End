@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Card, CardHeader, IconButton } from '@material-ui/core';
-import SimplePopover from './SimplePopOver';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import MaterialUiPopOver from './AvatarComponent';
 
 class JobComponent extends React.Component {
     state = {
@@ -32,21 +32,13 @@ class JobComponent extends React.Component {
 
     render() {
         const { classes } = this.props;
+        let url = `/profile/jobs/${this.props.job.id}`;
+
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
                     <CardHeader
-                        action={
-                            <IconButton onClick={this.handleVertIconClick}>
-                                <MoreVertIcon />
-                                <SimplePopover
-                                    anchorEl={this.state.popOverElement}
-                                    handleClose={this.handlePopOverClose}
-                                    getContent={this.getPopOverContent}
-                                    id={this.props.job.id}
-                                />
-                            </IconButton>
-                        }
+                        action={<MaterialUiPopOver url={url} />}
                         title={this.props.job.jobTitle}
                         className={classes.cardHeader}
                         subheader={moment(this.props.job.jobOpenDate).format(

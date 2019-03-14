@@ -16,18 +16,19 @@ class Profile extends Component {
     };
 
     componentDidMount() {
-        let id = this.props.match.params.id;
-        let profileType = this.props.match.params.accountType;
+        this.getProfile();
+    }
+
+    getProfile = (props = this.props) => {
+        let id = props.match.params.id;
+        let profileType = props.match.params.accountType;
         let profileOwner = false;
         let accountType = 'user';
-        if (this.props.account.hasOwnProperty('companyName')) {
+        if (props.account.hasOwnProperty('companyName')) {
             accountType = 'company';
         }
 
-        if (
-            parseInt(id) === this.props.account.id &&
-            profileType === accountType
-        ) {
+        if (parseInt(id) === props.account.id && profileType === accountType) {
             profileOwner = true;
         }
 
@@ -42,11 +43,11 @@ class Profile extends Component {
             url = `/users/info`;
         }
 
-        requestWithToken(this.props.token)
+        requestWithToken(props.token)
             .get(url)
             .then(res => {
                 if (accountType === 'company' && profileType === 'job') {
-                    if (res.data.company_id === this.props.account.id) {
+                    if (res.data.company_id === props.account.id) {
                         profileOwner = true;
                     }
                 }
@@ -59,6 +60,17 @@ class Profile extends Component {
             .catch(err => {
                 console.log(err.message);
             });
+    };
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        if (
+            nextProps.match.params.id !== this.props.match.params.id ||
+            nextProps.match.params.accountType !==
+                this.props.match.params.accountType
+        ) {
+            this.getProfile(nextProps);
+            return true;
+        }
     }
 
     render() {

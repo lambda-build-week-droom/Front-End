@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Card, CardHeader, CardMedia } from '@material-ui/core';
+import { withStyles, Card } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
 import faker from 'faker';
 import Hammer from 'react-hammerjs';
 import { connect } from 'react-redux';
 import { approveMatch, disApproveMatch } from '../actions/matchActions';
-import ControlledExpansionPanel from './ControlledExpansionPanel';
-import SimpleBottomNavigation from './SimpleBottomNavigation';
-import Chip from './Chip';
 import CardDetails from './CardDetails';
-import JobCard from './JobCard';
-import UserCard from './UserCard';
 
 class MainStreamCard extends React.Component {
     state = {

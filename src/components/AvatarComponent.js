@@ -10,37 +10,71 @@ import {
     Typography,
 } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import faker from 'faker';
 import moment from 'moment';
-import SimplePopover from './SimplePopOver';
 import { Link } from 'react-router-dom';
+import uuid4 from 'uuid4';
+import MaterialUiPopOver from './MaterialUiPopOver';
 
 class AvatarComponent extends React.Component {
     state = {
         popOverElement: null,
+        popoverOpen: false,
+        popoverKey: uuid4(),
     };
 
-    handlePopOverClose = () => {
-        this.setState({ popOverElement: null });
+    handlePopOverClose = event => {
+        if (event.target.value !== this.state.popOverElement) {
+            console.log('click outer');
+            if (this.state.popoverOpen === true) {
+                this.setState(prevState => {
+                    return {
+                        popoverOpen: false,
+                    };
+                });
+            }
+            // this.setState(state => {
+            //     console.log('click inner');
+            //     return {
+            //         popOverElement: null,
+            //         popoverOpen: false,
+            //     };
+            // });
+        }
     };
 
     handleVertIconClick = event => {
         this.setState({
             popOverElement: event.currentTarget,
+            popoverOpen: true,
         });
     };
 
     getPopOverContent = id => {
-        return (
-            <Link replace={true} to={`/profile/${id}`}>
-                View Profile
-            </Link>
-        );
+        if (this.props.avatar.hasOwnProperty('companyName')) {
+            return <Link to={`/profile/company/${id}`}>View Profile </Link>;
+        }
+        return <Link to={`/profile/user/${id}`}>View Profile</Link>;
     };
+
+    // componentWillUpdate(nextProps, nextState, nextContext) {
+    //     :
+    //     if (nextState.popoverOpen !== this.state.popoverOpen) {
+    //         return true;
+    //     }
+    // }
 
     render() {
         const { classes } = this.props;
+        console.log(this.state);
+
+        let url = `/profile/user/${this.props.avatar.id}`;
+        if (this.props.avatar.hasOwnProperty('companyName')) {
+            url = `/profile/company/${this.props.avatar.id}`;
+        } else if (this.props.avatar.hasOwnProperty('jobTitle')) {
+            url = `/profile/jobs/${this.props.avatar.id}`;
+        }
+
         return (
             <Card className={classes.card}>
                 <CardHeader
@@ -51,17 +85,7 @@ class AvatarComponent extends React.Component {
                             src={faker.fake('{{image.avatar}}')}
                         />
                     }
-                    action={
-                        <IconButton onClick={this.handleVertIconClick}>
-                            <MoreVertIcon />
-                            <SimplePopover
-                                anchorEl={this.state.popOverElement}
-                                handleClose={this.handlePopOverClose}
-                                getContent={this.getPopOverContent}
-                                id={this.props.avatar.id}
-                            />
-                        </IconButton>
-                    }
+                    action={<MaterialUiPopOver url={url} />}
                     title={this.props.avatar.title}
                     subheader={moment(faker.fake('{{date.past}}')).format(
                         'dddd, MMMM Do YYYY'

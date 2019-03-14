@@ -1,15 +1,11 @@
-import apiRequest, { requestWithToken } from './axios';
+import { requestWithToken } from './axios';
 import actionCreator from './actionCreator';
-import uuid4 from 'uuid4';
 
 export const UPDATING_ACCOUNT_INFO = 'UPDATING_ACCOUNT_INFO';
 export const ACCOUNT_INFORMATION_UPDATED = 'ACCOUNT_INFORMATION_UPDATED';
 export const ERROR = 'ERROR';
-export const REGISTERED = 'REGISTERED';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGGED_OUT = 'LOGGED_OUT';
-
-let registered = [];
 
 export const updateAccountInfo = (
     account,

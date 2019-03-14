@@ -8,10 +8,10 @@ import SimpleBottomNavigation from './SimpleBottomNavigation';
 
 const CardDetails = ({
     classes,
-    title,
-    subheader,
-    image,
-    imageTitle = null,
+    title = '',
+    subheader = '',
+    image = '',
+    imageTitle = '',
     chips = [],
 }) => {
     return (
@@ -36,9 +36,9 @@ const CardDetails = ({
 
 CardDetails.propTypes = {
     classes: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired,
-    subheader: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    subheader: PropTypes.string,
+    image: PropTypes.string,
     imageTitle: PropTypes.string,
     chips: PropTypes.array,
 };

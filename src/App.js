@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import { Route, withRouter } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import './App.scss';
 import Main from './views/Main';
 import Login from './views/Login';
 import { connect } from 'react-redux';
-import { decrypt, encrypt } from './components/Cryptr';
+import { decrypt } from './components/Cryptr';
 import { authenticateFromLocalStorage } from './actions/appActions';
 import { loggedIn } from './actions/accountActions';
 import Profile from './views/Profile';
-import MiniDrawer from './components/MiniDrawer';
-import unsplash from './actions/unsplash';
 import Matches from './views/Matches';
 import Messages from './views/Messages';
 import SignOut from './views/SignOut';
-import MainStream from './components/MainStream';
 
 class App extends Component {
     state = {

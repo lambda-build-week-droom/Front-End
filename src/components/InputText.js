@@ -1,7 +1,6 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, withStyles } from '@material-ui/core';
-import classes from 'classnames';
 
 function getName(words) {
     let splitWords = words.toLowerCase().split(' ');
@@ -36,7 +35,15 @@ const InputText = ({
     />
 );
 
-InputText.propTypes = {};
+InputText.propTypes = {
+    label: PropTypes.string,
+    multiLine: PropTypes.bool,
+    rows: PropTypes.number,
+    fullWidth: PropTypes.bool,
+    name: PropTypes.string,
+    errors: PropTypes.array,
+    classes: PropTypes.object.isRequired,
+};
 
 const styles = {
     textField: {},
