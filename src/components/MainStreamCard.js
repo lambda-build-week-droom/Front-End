@@ -113,6 +113,7 @@ class MainStreamCard extends React.Component {
                 },
             },
         };
+        debugger;
 
         return (
             <Hammer
@@ -154,7 +155,15 @@ class MainStreamCard extends React.Component {
                                     }
                                 />
                             ) : (
-                                <UserCard account={this.props.account} />
+                                <CardDetails
+                                    image={this.props.account.usrImg}
+                                    title={this.props.account.occupation}
+                                    subheader={`${
+                                        this.props.account.firstName
+                                    } ${this.props.account.lastName}`}
+                                    chips={this.state.chips}
+                                    discription={this.props.account.experience}
+                                />
                             )
                         ) : (
                             ''

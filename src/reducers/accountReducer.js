@@ -13,10 +13,12 @@ const initialState = {
 };
 
 export const accountReducer = (state = initialState, action) => {
+    debugger;
     switch (action.type) {
         case UPDATING_ACCOUNT_INFO:
             return { ...state, updatingAccountInfo: true };
         case ACCOUNT_INFORMATION_UPDATED:
+            action.payload.account.id = state.account.id;
             return {
                 ...state,
                 updatingAccountInfo: false,

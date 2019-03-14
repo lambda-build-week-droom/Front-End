@@ -26,22 +26,40 @@ export const updateAccountInfo = (
         url = `/jobs/update/${account.id}`;
     }
 
-    requestWithToken(token)
-        .put(url, {
-            firstName: account.firstName,
-            lastName: account.lastName,
-            occupation: account.occupation,
-            experience: account.experience,
-            interests: account.interests,
-        })
-        .then(res => {
-            debugger;
-            dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
-        })
-        .catch(err => {
-            debugger;
-            dispatch(actionCreator(ERROR, err));
-        });
+    if (accountType === 'user') {
+        requestWithToken(token)
+            .put(url, {
+                firstName: account.firstName,
+                lastName: account.lastName,
+                occupation: account.occupation,
+                experience: account.experience,
+                interests: account.interests,
+            })
+            .then(res => {
+                debugger;
+                dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
+            })
+            .catch(err => {
+                debugger;
+                dispatch(actionCreator(ERROR, err));
+            });
+    } else if (accountType === 'company') {
+        requestWithToken(token)
+            .put(url, {
+                companyName: account.companyName,
+                email: account.email,
+                bio: account.bio,
+                address: account.address,
+            })
+            .then(res => {
+                debugger;
+                dispatch(actionCreator(ACCOUNT_INFORMATION_UPDATED, account));
+            })
+            .catch(err => {
+                debugger;
+                dispatch(actionCreator(ERROR, err));
+            });
+    }
 };
 
 export const logOut = () => {

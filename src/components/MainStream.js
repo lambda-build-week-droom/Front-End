@@ -8,6 +8,7 @@ import { updateAccountInfo } from '../actions/accountActions';
 
 class MainStream extends Component {
     componentDidMount() {
+        debugger;
         let accountType = 'user';
 
         if (this.props.account.hasOwnProperty('companyName')) {

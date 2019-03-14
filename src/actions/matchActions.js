@@ -19,6 +19,7 @@ export const approveMatch = accountId => async dispatch => {
 };
 
 export const getStream = (token, accountType) => async dispatch => {
+    debugger;
     let url = '/jobs';
     if (accountType === 'company') {
         url = '/users';
@@ -27,12 +28,12 @@ export const getStream = (token, accountType) => async dispatch => {
     requestWithToken(token)
         .get(url)
         .then(res => {
-            let accountType = 'job';
+            let profileType = 'job';
             if (accountType === 'company') {
-                accountType = 'user';
+                profileType = 'user';
             }
             res.data = res.data.map(account => {
-                account.accountType = accountType;
+                account.accountType = profileType;
                 return account;
             });
             dispatch(actionCreator(MATCHES_FETCHED, res.data));

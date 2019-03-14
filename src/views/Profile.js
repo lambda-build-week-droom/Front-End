@@ -36,7 +36,7 @@ class Profile extends Component {
         if (profileType === 'job') {
             url = `/jobs/${id}`;
         } else if (profileType === 'company') {
-            url = `/company/${id}`;
+            url = `/companies/${id}`;
         }
 
         if (profileType === 'user' && profileOwner) {
