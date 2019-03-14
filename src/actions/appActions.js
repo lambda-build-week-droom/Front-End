@@ -14,23 +14,30 @@ let registered = [];
 
 export const checkAuthentication = account => async dispatch => {
     dispatch(actionCreator(CHECKING_AUTHENTICATION));
-
+    debugger;
     request()
         .post('/auth/login', {
             email: account.email,
             password: account.password,
         })
         .then(res => {
+            let data = {};
+            if (res.data.hasOwnProperty('companyInfo')) {
+                data = res.data.companyInfo;
+            } else {
+                data = res.data.userInfo;
+            }
+
             if (account.rememberMe) {
                 let key = encrypt('token');
                 let tokenValue = encrypt(res.data.token);
                 localStorage.setItem(key, tokenValue);
-                let account = encrypt(JSON.stringify(res.data.userInfo));
+                let account = encrypt(JSON.stringify(data));
                 let accountKey = encrypt('account');
                 localStorage.setItem(accountKey, account);
             }
             dispatch(actionCreator(AUTHENTICATED, res.data.token));
-            dispatch(actionCreator(LOGGED_IN, res.data.userInfo));
+            dispatch(actionCreator(LOGGED_IN, data));
         })
         .catch(err => {
             dispatch(actionCreator(ERROR, err));
