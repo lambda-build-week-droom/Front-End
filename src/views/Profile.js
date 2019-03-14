@@ -6,7 +6,6 @@ import MyMatches from '../components/MyMatches';
 import MiniDrawer from '../components/MiniDrawer';
 import JobProfile from '../components/JobProfile';
 import UserProfile from '../components/UserProfile';
-import CompanyProfile from '../components/CompanyProfile';
 
 class Profile extends Component {
     state = {
@@ -102,14 +101,6 @@ class Profile extends Component {
                         )}
                         {this.state.profileType === 'user' ? (
                             <UserProfile
-                                profile={this.state.profile}
-                                myProfile={this.state.myProfile}
-                            />
-                        ) : (
-                            ''
-                        )}
-                        {this.state.profileType === 'company' ? (
-                            <CompanyProfile
                                 profile={this.state.profile}
                                 myProfile={this.state.myProfile}
                             />
