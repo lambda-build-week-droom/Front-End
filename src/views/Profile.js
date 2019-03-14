@@ -45,6 +45,12 @@ class Profile extends Component {
         requestWithToken(this.props.token)
             .get(url)
             .then(res => {
+                debugger;
+                if (accountType === 'company' && profileType === 'job') {
+                    if (res.data.company_id === this.props.account.id) {
+                        profileOwner = true;
+                    }
+                }
                 this.setState({
                     profile: res.data,
                     myProfile: profileOwner,

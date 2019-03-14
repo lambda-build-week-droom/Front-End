@@ -38,6 +38,23 @@ export const checkAuthentication = account => async dispatch => {
 };
 
 export const submitRegistration = account => async dispatch => {
+    if (account.type === 'company') {
+        debugger;
+        request()
+            .post('/auth/register', {
+                email: account.email,
+                password: account.password,
+                type: account.type,
+                companyName: account.companyName,
+            })
+            .then(res => {
+                dispatch(actionCreator(REGISTERED));
+            })
+            .catch(err => {
+                dispatch(actionCreator(ERROR, err));
+            });
+        return;
+    }
     request()
         .post('/auth/register', {
             email: account.email,
