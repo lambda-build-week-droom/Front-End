@@ -66,13 +66,16 @@ class AvatarComponent extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.state);
 
-        let url = `/profile/user/${this.props.avatar.id}`;
-        if (this.props.avatar.hasOwnProperty('companyName')) {
-            url = `/profile/company/${this.props.avatar.id}`;
-        } else if (this.props.avatar.hasOwnProperty('jobTitle')) {
-            url = `/profile/jobs/${this.props.avatar.id}`;
+        let url = '';
+        if (this.props.avatar) {
+            if (this.props.avatar.hasOwnProperty('companyName')) {
+                url = `/profile/company/${this.props.avatar.id}`;
+            } else if (this.props.avatar.hasOwnProperty('jobTitle')) {
+                url = `/profile/jobs/${this.props.avatar.id}`;
+            } else {
+                url = `/profile/user/${this.props.avatar.id}`;
+            }
         }
 
         return (
@@ -80,13 +83,15 @@ class AvatarComponent extends React.Component {
                 <CardHeader
                     avatar={
                         <Avatar
-                            aria-label={this.props.avatar.title}
+                            aria-label={
+                                this.props.avatar && this.props.avatar.title
+                            }
                             className={classes.bigAvatar}
                             src={faker.fake('{{image.avatar}}')}
                         />
                     }
                     action={<MaterialUiPopOver url={url} />}
-                    title={this.props.avatar.title}
+                    title={this.props.avatar && this.props.avatar.title}
                     subheader={moment(faker.fake('{{date.past}}')).format(
                         'dddd, MMMM Do YYYY'
                     )}

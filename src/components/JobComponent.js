@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Card, CardHeader, IconButton } from '@material-ui/core';
+import { Card, CardHeader } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import MaterialUiPopOver from './AvatarComponent';
+import MaterialUiPopOver from './MaterialUiPopOver';
 
 class JobComponent extends React.Component {
     state = {
