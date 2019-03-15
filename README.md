@@ -1,8 +1,8 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/a265e8a0-69ee-4ac6-800c-645010319293/deploy-status)](https://app.netlify.com/sites/getchatify/deploys)
+<!--[![Netlify Status](https://api.netlify.com/api/v1/badges/a265e8a0-69ee-4ac6-800c-645010319293/deploy-status)](https://app.netlify.com/sites/getchatify/deploys)-->
 
-# **Chatify**
+# **Droom**
 
-> Link to [FrontEnd](https://getchatify.netlify.com/)
+> Link to [FrontEnd](https://keen-hodgkin-2ca05d.netlify.com/login/form)
 
 # Proposal
 
