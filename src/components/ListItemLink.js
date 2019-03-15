@@ -1,21 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from 'react-router-dom';
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: 360,
-    },
-    lists: {
-        backgroundColor: theme.palette.background.paper,
-    },
-});
 
 class ListItemLink extends React.Component {
     renderLink = itemProps => <Link to={this.props.to} {...itemProps} />;
@@ -55,4 +43,4 @@ ListItemLink.propTypes = {
 //     to: PropTypes.string.isRequired,
 // };
 
-export default withStyles(styles)(ListItemLink);
+export default ListItemLink;
